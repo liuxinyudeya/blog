@@ -1,0 +1,90 @@
+name: Deploy VitePress to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 添加调试步骤：查看目录结构
+      - name: Debug - List directory structure
+        run: |
+          echo "当前目录结构："
+          ls -la
+          echo "docs 目录结构："
+          ls -la docs/ || echo "docs 目录不存在"
+          echo ".vitepress 目录结构："
+          ls -la docs/.vitepress/ 2>/dev/null || echo ".vitepress 目录不存在"
+
+      - name: Build VitePress
+        # 根据你的项目结构调整构建命令
+        run: |
+          # 如果你的 vitepress 在根目录
+          # npx vitepress build
+
+          # 或者，如果你的 vitepress 在 docs 目录
+          # npx vitepress build docs
+
+          # 或者，使用 package.json 中的脚本
+          npm run docs:build
+
+      # 再次调试：查看构建输出
+      - name: Debug - Check build output
+        run: |
+          echo "查找 dist 目录："
+          find . -name "dist" -type d | head -5
+          echo "如果找到，查看 dist 目录内容："
+          find . -name "dist" -type d -exec sh -c 'echo "=== {} ===" && ls -la "$@"' _ {} \;
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 尝试不同的路径
+          path: | # 使用 | 尝试多个路径
+            docs/.vitepress/dist
+            .vitepress/dist
+            dist
+            ./dist
+            docs/dist
+            _site
+            build
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
