@@ -52,7 +52,7 @@ jobs:
           # npx vitepress build docs
 
           # 或者，使用 package.json 中的脚本
-          npm run docs:build
+          npm run docs:build --base /blog/
 
       # 再次调试：查看构建输出
       - name: Debug - Check build output
