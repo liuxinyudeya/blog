@@ -69,14 +69,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # 尝试不同的路径
-          path: | # 使用 | 尝试多个路径
-            docs/.vitepress/dist
-            .vitepress/dist
-            dist
-            ./dist
-            docs/dist
-            _site
-            build
+          path: .vitepress/dist
 
   deploy:
     environment:
