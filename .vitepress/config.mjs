@@ -2,8 +2,6 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  srcDir: "blog",
-
   // 设置站点 favicon.ico | 运行时与部署时去哪里加载资源？
   head: [["link", { rel: "icon", href: "/logo.svg" }]],
 
