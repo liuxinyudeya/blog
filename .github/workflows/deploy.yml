@@ -2,7 +2,7 @@ name: Deploy VitePress to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -32,35 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 添加调试步骤：查看目录结构
-      - name: Debug - List directory structure
-        run: |
-          echo "当前目录结构："
-          ls -la
-          echo "docs 目录结构："
-          ls -la docs/ || echo "docs 目录不存在"
-          echo ".vitepress 目录结构："
-          ls -la docs/.vitepress/ 2>/dev/null || echo ".vitepress 目录不存在"
-
       - name: Build VitePress
-        # 根据你的项目结构调整构建命令
+        # 使用正确的构建命令
         run: |
-          # 如果你的 vitepress 在根目录
-          # npx vitepress build
+          # 方法1：直接使用 vitepress build
+          npx vitepress build
 
-          # 或者，如果你的 vitepress 在 docs 目录
-          # npx vitepress build docs
-
-          # 或者，使用 package.json 中的脚本
-          npm run docs:build --base /blog/
-
-      # 再次调试：查看构建输出
-      - name: Debug - Check build output
-        run: |
-          echo "查找 dist 目录："
-          find . -name "dist" -type d | head -5
-          echo "如果找到，查看 dist 目录内容："
-          find . -name "dist" -type d -exec sh -c 'echo "=== {} ===" && ls -la "$@"' _ {} \;
+          # 或者方法2：如果 package.json 中有 scripts
+          npm run docs:build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -68,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # 尝试不同的路径
+          # 根目录项目结构，所以路径是 .vitepress/dist
           path: .vitepress/dist
 
   deploy:
