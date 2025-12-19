@@ -9,6 +9,12 @@ export default defineConfig({
   description: "liuxinyude blog",
   cleanUrls: true,
   assetsDir: "static",
+  markdown: {
+    // 配置代码块样式
+    theme: "material-theme-palenight", // 其他内置主题参考： material-theme-palenight | github-dark | github-light | dracula | monokai 等
+
+    // lineNumbers: true, // 配置代码款是否显示行号
+  },
 
   themeConfig: {
     logo: "/logo-mini.svg",
