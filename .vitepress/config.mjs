@@ -15,7 +15,8 @@ export default defineConfig({
 
     // lineNumbers: true, // 配置代码款是否显示行号
   },
-
+  // 开启编辑时间
+  lastUpdated: true,
   themeConfig: {
     logo: "/logo-mini.svg",
     // https://vitepress.dev/reference/default-theme-config
