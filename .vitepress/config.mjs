@@ -48,6 +48,8 @@ export default defineConfig({
 
   themeConfig: {
     logo: "/logo-mini.svg",
+    // 外部链接是否显示箭头图标
+    externalLinkIcon: true,
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "首页", link: "/" },
