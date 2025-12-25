@@ -55,11 +55,7 @@ export default defineConfig({
       { text: "首页", link: "/" },
       {
         text: "HTML",
-        items: [
-          { text: "HTML 元素", link: "/html/html-elements.md" },
-          { text: "HTML 属性", link: "/html/html-attributes.md" },
-          { text: "SVG", link: "/html/svg.md" },
-        ],
+        link: "/html/html-elements.md",
       },
       {
         text: "CSS",
@@ -73,7 +69,6 @@ export default defineConfig({
       {
         text: "JavaScript",
         items: [
-          { text: "es6", link: "/javascript/es6.md" },
           { text: "JavaScript", link: "/javascript/javascript.md" },
           { text: "TypeScript", link: "/javascript/typescript.md" },
         ],
@@ -113,17 +108,7 @@ export default defineConfig({
 
       {
         text: "其他",
-        items: [
-          {
-            text: "设计模式",
-            link: "/o/design.md",
-          },
-          { text: "负载均衡", link: "/others/load-balancing.md" },
-          { text: "浏览器", link: "/others/browser.md" },
-          { text: "网络于协议", link: "/others/network.md" },
-          { text: "开发工具", link: "/others/devtools.md" },
-          { text: "Linux", link: "/others/linux.md" },
-        ],
+        link: "/others/design.md",
       },
     ],
     sidebar: {
@@ -155,6 +140,10 @@ export default defineConfig({
             { text: "ES6+", link: "/javascript/es6.md" },
             { text: "JavaScript", link: "/javascript/javascript.md" },
             { text: "TypeScript", link: "/javascript/typescript.md" },
+            { text: "防抖", link: "/javascript/debounce.md" },
+            { text: "节流", link: "/javascript/throttle.md" },
+            { text: "原型链", link: "/javascript/prototype.md" },
+            { text: "闭包", link: "/javascript/closure.md" },
           ],
         },
       ],
@@ -176,8 +165,10 @@ export default defineConfig({
               text: "Vue2",
               items: [
                 { text: "Vuejs2", link: "/vue/vue2.md" },
-                { text: "Vue2响应式系统", link: "/vue/vue2-reactive-data.md" },
-                { text: "Vue2视图渲染", link: "/vue/vue2-view-rendering.md" },
+                { text: "响应式系统", link: "/vue/vue2-reactive-data.md" },
+                { text: "视图渲染", link: "/vue/vue2-view-rendering.md" },
+                { text: "生命周期", link: "/vue/lifecycle.md" },
+                { text: "指令", link: "/vue/directive.md" },
               ],
             },
             { text: "Vue3", link: "/vue/vue3.md" },
@@ -192,10 +183,23 @@ export default defineConfig({
           ],
         },
       ],
+
       "/others/": [
         {
           text: "其他",
           items: [
+            {
+              text: "设计模式",
+              items: [
+                { text: "单例模式", link: "/others/design/singleton.md" },
+                { text: "代理模式", link: "/others/design/proxy.md" },
+                { text: "观察者模式", link: "/others/design/observer.md" },
+                {
+                  text: "发布订阅模式",
+                  link: "/others/design/publish-subscribe.md",
+                },
+              ],
+            },
             { text: "负载均衡", link: "/others/load-balancing.md" },
             { text: "浏览器", link: "/others/browser.md" },
             { text: "网络与协议", link: "/others/network.md" },

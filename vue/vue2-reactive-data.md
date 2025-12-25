@@ -1,16 +1,28 @@
 # 响应式系统
 
-可以说 vuejs 最大的特性就是响应式系统，即 当数据发生变化时，在不刷新页面的情况下，数据可以自动更新到页面上。
+**响应式系统** 是 vuejs 的一大特性。即 当数据发生变化时，在不刷新页面的情况下，数据可以自动更新到页面上。
+
 在这个过程中，我们主要关注两个阶段：
 
-- 数据更新: 对于数据 count,当它发生变化时，如何使依赖 count 的数据也发生变化
+- 数据更新: 对于自定义属性 count,当它发生变化时，如何使依赖 count 的数据也发生变化
 - 视图更新: 当页面数据发生变化时，如何将变化后的新数据重新渲染到页面上
 
-## 入口
+## new Vue()
 
-当 `new Vue({...})` 时，Vue 构造函数会调用`_init()`方法。
+在上文中我们已经知道：`initMixin()`函数已经将`_init()`函数挂载到 Vue 的原型上。
+
+当 `new Vue({...})` 时，Vue 构造函数会调用`_init()`。
 
 ::: code-group
+
+```js [ new Vue ]
+function Vue(options) {
+  if (!(this instanceof Vue)) {
+    warn$2("Vue is a constructor and should be called with the `new` keyword");
+  }
+  this._init(options);
+}
+```
 
 ```js [initMixin]
 //  Vue 构造函数的核心初始化方法
@@ -67,21 +79,37 @@ function initState(vm) {
 
 :::
 
-此时我们就遇到 [Vue 生命周期](/vue/lifecycle.md) 的第一个钩子函数：`beforeCreate`。
+在`_init`中我们会看到 [Vue 生命周期](/vue/lifecycle.md) 的前两个钩子函数：`beforeCreate`、`created`。
+
+他们分别在 `initState` 函数之前、之后执行。
+
 :::info 在 `beforeCreate` 钩子函数中：
-我们可以做一些初始化操作，比如设置一些初始数据。<br>
-我们可以访问到组件的配置选项（options），但是此时还没有初始化 data、computed 等状态。<br>
+我们可以做一些初始化操作，比如设置一些初始数据。
+
+我们可以访问到组件的配置选项（options），但是此时还没有初始化 data、computed 等状态。
 :::
-在`beforeCreate` 钩子函数之后，紧接着会执行 `initState()` 方法。<br>
-`initState` 是 Vue 响应式系统的核心入口函数，在这里进行
+
+在`beforeCreate` 钩子函数之后，紧接着会执行 `initState()` 函数。
+::: tip `initState()` 是 Vue 响应式系统的核心入口函数，在这里将进行:
 
 - 初始化 props，将父组件传递的数据转换为响应式
 - 初始化 methods，将方法绑定到实例上
 - **初始化 data，将数据转换为响应式**
 - 初始化 computed，计算属性
 - 初始化 watch，侦听器
+  :::
 
-在这里我先着重讲解初始化 data 的过程，因为这是响应式系统的核心。
+在`initState()` 函数执行后，会执行 `created` 钩子函数。
+
+:::info 在 `create` 钩子函数中：
+数据已初始化完成，可以访问和修改 data、computed、methods 等
+
+DOM 尚未挂载，不能操作 DOM 元素
+
+常用于：数据初始化、API 调用、事件监听、初始化第三方库
+:::
+
+在这里我先来看 **初始化 data** 的过程，因为这是响应式系统的核心。
 
 ## 初始化 data
 
@@ -91,7 +119,6 @@ function initState(vm) {
 `initData -> observe -> new Observer -> defineReactive -> Dep`
 :::
 
-需要注意 Observer 中 `this.dep = mock ? mockDep : new Dep();` ? TODO<br>
 在 Observer 中，调用 `defineReactive` 方法，将对象声明为响应式数据。<br>
 
 :::code-group
@@ -157,8 +184,12 @@ var Observer = /** @class */ (function () {
    */
   function Observer(value, shallow, mock) {
     // ... 忽略部分代码 ...
-    // TODO 创建依赖收集器（Dep 实例） mock 模式下使用预定义的 mockDep，减少开销
+
+    this.value = value; // 存储原始数据值
+    // 对象级别的依赖收集器，用于管理对象级别的更新通知
     this.dep = mock ? mockDep : new Dep();
+    this.vmCount = 0; // 记录当前 Observer 实例被多少个组件使用
+    def(value, "__ob__", this); // 将 Observer 实例标记在原始数据上，便于访问
 
     var keys = Object.keys(value);
     // 遍历对象的所有属性
@@ -214,14 +245,39 @@ var Dep = /** @class */ (function () {
 
 :::
 
-vue 响应式数据的设计思想应用了[发布订阅模式](/design/design.md)<br>
+vue 响应式数据的设计思想应用了[发布订阅模式](/others//design/publish-subscribe.md)<br>
 我们先来看`Dep` 实例:
 
 - 内部维护了一个订阅者列表 `subs`，用于存储所有依赖该属性的 观察者`Watcher` 实例。
 - 提供了 `addSub` 和 `removeSub` 方法，用于添加和移除订阅者。
 - 提供了 `depend` 和 `notify` 方法，用于依赖收集和通知更新。
 
-`defineReactive` 函数通过 **Object.defineProperty** 方法劫持了对象的属性，实现了依赖收集和派发更新的功能。
+在 Observer 中需要注意的是：
+
+先通过 `this.dep = mock ? mockDep : new Dep()` 创建了一个对象级别的依赖收集器。
+
+而后通过遍历对象的所有属性，并调用 `defineReactive` 方法将它们转换为响应式属性。每个响应式属性都会创建一个对应的 Dep 实例，用于管理对该属性的依赖收集和更新通知。
+
+:::info 他们的层级关系可以理解为：
+对象 user (有一个 dep)
+
+├── 属性 name (有一个 dep)
+
+├── 属性 age (有一个 dep)
+
+└── 属性 address (有一个 dep)
+
+:::
+this.dep = new Dep() 的作用是为整个对象创建一个依赖收集器，用于：
+
+- 对象整体替换时的依赖通知
+- 数组变异方法调用时的依赖通知
+- 嵌套对象的依赖收集
+- 计算属性或 $watch 中对整个对象的观察
+
+### defineReactive
+
+`defineReactive` 函数通过 **Object.defineProperty** 劫持对象的 getter、setter 属性，实现了依赖收集和派发更新的功能。
 
 ::: code-group
 
@@ -323,6 +379,8 @@ Object.defineProperty(obj, key, {
 - Step.1 当将某个属性的值设置为响应式时，会创建一个 `Dep` 实例并绑定到该属性上。（每一个响应式属性都有一个对应的 `Dep` 实例。）<br>
 - Step.2 劫持属性的 `getter` 方法,在属性被访问时，将当前正在计算的 `Watcher` 实例添加到该属性的依赖列表中。
 - Step.3 劫持属性的 `setter` 方法,当属性值被修改时，会触发属性的 `setter` 方法，当属性值变化时通过调用 `notify()` 方法通知所有订阅了该属性的 `Watcher`调用 `update` 方法来更新。
+
+被收集的**依赖** ，其实就是各种各样的 `Watcher` 实例。下面我们来看有哪些 `Watcher`实例。
 
 ## Watcher
 
@@ -547,25 +605,104 @@ function flushSchedulerQueue() {
 
 :::
 
+Watcher 是观察者，负责：
+
+- 观察数据变化
+- 收集依赖关系
+- 数据变化时执行回调（如更新视图）
+
+### 构造函数
+
+他们的构造器函数如下:
+
+```js
+// 1. 渲染 Watcher (Render Watcher)
+// 来源：Vue 内部自动创建，每个组件只有一个
+new Watcher(
+  vm,
+  updateComponent,
+  noop,
+  {
+    before() {
+      /* 触发 beforeUpdate 钩子 */
+    },
+  },
+  true
+); // 第五个参数 isRenderWatcher = true
+
+// 2. 用户 Watcher (User Watcher)
+// 来源：用户通过 watch 选项或 $watch 方法创建
+new Watcher(vm, expOrFn, cb, {
+  user: true, // 标记为用户 watcher
+  deep: false, // 可配置
+  sync: false, // 可配置
+});
+
+// 3. 计算属性 Watcher (Computed Watcher)
+// 来源：computed 选项初始化时创建
+new Watcher(vm, getter, noop, {
+  lazy: true, // 惰性求值
+});
+```
+
+### 创建时机
+
+```js
+// 初始化顺序
+function initState(vm) {
+  // 1. 先初始化 computed
+  if (opts.computed) initComputed(vm, opts.computed);
+
+  // 2. 再初始化 watch
+  if (opts.watch) initWatch(vm, opts.watch);
+}
+
+// 挂载阶段
+Vue.prototype.$mount = function () {
+  // 3. 最后创建渲染 watcher
+  new Watcher(vm, updateComponent, noop, null, true);
+};
+```
+
+所以 watcher 创建顺序通常是： `计算属性 watcher -> 用户 watcher -> 渲染 watcher`
+
 ## 初始化 computed
 
-### initComputed 源码
+### initComputed 源码流程
+
+在`初始化 data` 后，会执行 `initComputed` 函数。
+
+`initComputed`会遍历 **computed** 对象中定义的每个属性，并为它们创建对应的计算属性的 **getter** 和 **setter**（虽然通常只有 getter）。
 
 ::: code-group
 
 ```js [initComputed]
+var computedWatcherOptions = { lazy: true };
+
 // 计算属性系统的核心初始化函数，vm: Vue 实例 | computed 用户定义的 computed 对象
 function initComputed(vm, computed) {
   // ...忽略部分代码...
-
-  var userDef = computed[key]; // 获取当前计算属性的定义
   // vm._computedWatchers 用于存储每个计算属性对应的 Watcher 实例
   // 这样可以在后续访问计算属性时快速找到对应的 watcher
   var watchers = (vm._computedWatchers = Object.create(null));
+  var isSSR = isServerRendering(); // 判断是否是服务端渲染
 
   for (var key in computed) {
-    // TODO 组件原型上定义的 computed 属性已经在组件初始化时挂载到了原型上 | 这里只需要处理在组件实例化时定义的 computed 属性
-    // 这里的 key 就是计算属性的名称，例如：'fullName'
+    var userDef = computed[key]; // 获取当前计算属性的定义
+    // 如果是函数，直接使用该函数作为 getter；否则，尝试获取其 get 方法
+    var getter = isFunction(userDef) ? userDef : userDef.get;
+
+    if (!isSSR) {
+      // 为每个计算属性创建专用的 watcher
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop, // 回调函数，计算属性不需要执行回调，所以传入 noop 即可
+        computedWatcherOptions // {lazy: true}
+      );
+    }
+
+    // 只有当属性不在 vm 上时才定义  | 避免避免覆盖已定义的 props、data 、methods 等属性
     if (!(key in vm)) defineComputed(vm, key, userDef); // 定义计算属性到 Vue 实例
   }
 }
@@ -620,9 +757,405 @@ function createGetterInvoker(fn) {
 
 :::
 
+### initComputed 要点
+
+我们注意到在 Vue 的计算属性实现中，有两个核心要点 `defineComputed`、`new Watcher`。
+
+它们各自承担不同的职责。下面让我们来看它们的职责与协作：
+
+**Watcher 的作用：计算逻辑 + 依赖管理**
+
+```js
+// Watcher 负责：
+// 1. 执行计算逻辑（getter函数）
+// 2. 收集依赖（哪些响应式数据被访问）
+// 3. 缓存计算结果
+// 4. 管理脏检查状态
+new Watcher(vm, getter, noop, { lazy: true });
+```
+
+**defineComputed 的作用：属性访问器 + 缓存调度**
+
+```js
+// defineComputed 负责：
+// 1. 将计算属性挂载到 vm 实例
+// 2. 创建智能的 getter 函数
+// 3. 调度何时重新计算（脏检查）
+// 4. 建立与渲染 watcher 的连接
+Object.defineProperty(vm, "countStr", {
+  get: function computedGetter() {
+    // 这里调用 watcher 的方法
+    if (watcher.dirty) {
+      watcher.evaluate(); // 委托给 watcher 计算
+    }
+    // ...
+  },
+});
+```
+
+二者的协作关系可以类比为餐厅系统去理解:
+
+- Watcher：就像厨师，负责实际烹饪（计算）
+- defineComputed：就像服务员，负责接收订单和上菜
+- 顾客：就像模板/代码，只关心点菜和吃饭
+
+```js
+// 顾客（模板）点菜
+{{ countStr }}
+
+// 服务员（defineComputed）接收订单
+get: function() {
+  // 检查是否需要烹饪
+  if (watcher.dirty) {
+    // 叫厨师（watcher）烹饪
+    watcher.evaluate();
+  }
+  // 上菜（返回值）
+  return watcher.value;
+}
+
+// 厨师（watcher）烹饪
+evaluate() {
+  this.value = this.get();  // 执行计算逻辑
+  this.dirty = false;       // 标记为已烹饪
+}
+```
+
+**Watcher 的职责（计算者）：**
+
+```js
+class Watcher {
+  evaluate() {
+    this.value = this.get(); // 1. 执行计算
+    this.dirty = false; // 2. 更新脏标记
+  }
+
+  update() {
+    if (this.lazy) {
+      this.dirty = true; // 3. 标记为需要重新计算
+    }
+  }
+
+  depend() {
+    let i = this.deps.length;
+    while (i--) {
+      this.deps[i].depend(); // 4. 收集上级依赖
+    }
+  }
+
+  get() {
+    pushTarget(this);
+    const value = this.getter.call(this.vm, this.vm); // 5. 实际计算
+    popTarget();
+    return value;
+  }
+}
+```
+
+**defineComputed 的职责（调度者）：**
+
+```js
+function createComputedGetter(key) {
+  return function computedGetter() {
+    const watcher = this._computedWatchers[key];
+
+    if (watcher) {
+      // 1. 检查是否需要计算（调度决策）
+      if (watcher.dirty) {
+        watcher.evaluate(); // 委托给 watcher
+      }
+
+      // 2. 建立依赖链（连接渲染 watcher）
+      if (Dep.target) {
+        watcher.depend(); // 委托给 watcher
+      }
+
+      // 3. 返回结果
+      return watcher.value;
+    }
+  };
+}
+```
+
+### 计算属性的完整生命周期
+
+```js
+// 1. 初始化阶段
+initComputed() {
+  // 创建 watcher（计算者）
+  watchers[key] = new Watcher(vm, getter, noop, { lazy: true });
+
+  // 定义属性（调度者）
+  defineComputed(vm, key, userDef);
+}
+
+// 2. 访问阶段（用户访问 vm.countStr
+computedGetter() {
+  // 调度者检查：需要计算吗？
+  if (watcher.dirty) {
+    // 委托给计算者执行
+    watcher.evaluate();  // → watcher.get() → 执行实际计算
+  }
+
+  // 调度者建立依赖链
+  if (Dep.target) {
+    watcher.depend();  // 委托给计算者收集依赖
+  }
+
+  // 返回结果
+  return watcher.value;
+}
+
+// 3. 更新阶段（依赖数据变化时）
+// watcher.update() → watcher.dirty = true
+// 下次访问时会重新计算
+```
+
+**这种设计实际上是[代理模式](/others//design/proxy.md)的应用：**
+
+- defineComputed 是代理（Proxy）
+- Watcher 是真实主题（Real Subject）
+
+```js
+// 代理：控制访问，添加额外逻辑
+const computedGetter = {
+  get() {
+    // 1. 缓存检查
+    // 2. 权限检查（这里没有）
+    // 3. 记录日志（这里没有）
+    // 4. 延迟初始化
+
+    // 委托给真实对象
+    return watcher.evaluate();
+  },
+};
+
+// 真实主题：实际执行业务逻辑
+const watcher = {
+  evaluate() {
+    // 实际的计算逻辑
+    return this.getter();
+  },
+};
+```
+
+现有代码:
+
+```js
+// 定义计算属性
+computed: {
+  countStr() {
+     return `当前计数: ${this.count}`;
+  }
+}
+
+
+```
+
+它的完整生命周期为：
+::: tip 生命周期：
+
+1. 初始化：new Watcher() + defineComputed()
+2. 首次访问：脏检查 → evaluate() → 计算 → 缓存
+3. 再次访问：直接返回缓存
+4. 依赖变化：watcher.update() → dirty = true
+5. 重新访问：脏检查 → 重新计算
+
+如果只有 Watcher：步骤 2-5 需要手动管理
+
+如果只有 defineComputed：无法实现步骤 4 的自动通知
+
+:::
+
+由于它：
+
+- 关注点分离：Watcher 专注计算，defineComputed 专注访问控制
+- 复用性：Watcher 可以被其他功能复用（如 $watch）
+- 扩展性：可以独立修改计算逻辑或访问逻辑
+- 集成性：defineComputed 将计算属性集成到 Vue 的属性系统中
+
+所以这种设计让计算属性既能享受 Watcher 的智能依赖追踪，又能像普通属性一样方便使用，是 Vue 响应式系统优雅设计的体现。
+
+### 使用场景
+
+- **基础数据派生 / 格式转换**
+
+将现有数据做格式化、拼接、类型转换等纯计算操作（如时间格式化、金额单位转换、字符串拼接），利用缓存避免重复计算。
+
+```js
+// Vue 2 选项式
+data() {
+  return {
+    username: 'zhangsan',
+    createTime: 1735689600000, // 时间戳
+    amount: 1234 // 分（需转为元）
+  };
+},
+computed: {
+  // 字符串拼接：派生用户展示名
+  displayName() {
+    return `用户名：${this.username.toUpperCase()}`;
+  },
+  // 时间格式化：时间戳转日期字符串
+  formatCreateTime() {
+    return new Date(this.createTime).toLocaleDateString();
+  },
+  // 数值转换：分转元（保留2位小数）
+  formatAmount() {
+    return (this.amount / 100).toFixed(2);
+  }
+}
+
+// Vue 3 组合式
+import { ref, computed } from 'vue';
+const username = ref('zhangsan');
+const createTime = ref(1735689600000);
+const amount = ref(1234);
+
+const displayName = computed(() => `用户名：${username.value.toUpperCase()}`);
+const formatCreateTime = computed(() => new Date(createTime.value).toLocaleDateString());
+const formatAmount = computed(() => (amount.value / 100).toFixed(2));
+```
+
+- **列表筛选 / 排序**
+
+根据筛选条件、排序规则，对原始列表做过滤 / 排序派生新列表（如电商商品筛选、待办事项过滤）。
+
+```js
+// Vue 2 待办事项筛选
+data() {
+  return {
+    todos: [
+      { id: 1, text: '学习Vue', done: false },
+      { id: 2, text: '写代码', done: true }
+    ],
+    filterType: 'all' // all/active/completed
+  };
+},
+computed: {
+  filteredTodos() {
+    switch (this.filterType) {
+      case 'active':
+        return this.todos.filter(todo => !todo.done);
+      case 'completed':
+        return this.todos.filter(todo => todo.done);
+      default:
+        return [...this.todos]; // 返回新数组，避免修改原列表
+    }
+  },
+  // 派生：未完成事项数量
+  activeTodoCount() {
+    return this.todos.filter(todo => !todo.done).length;
+  }
+}
+
+// 模板中直接使用
+// <div>{{ activeTodoCount }} 个未完成事项</div>
+// <ul><li v-for="todo in filteredTodos" :key="todo.id">{{ todo.text }}</li></ul>
+```
+
+- **多数据联动计算（依赖多个响应式数据）**
+
+最终值由多个数据共同决定（如购物车总价、表单是否可提交、权限判断）
+
+```js
+// Vue 3 购物车总价计算
+const cartItems = ref([
+  { id: 1, price: 99, quantity: 2 },
+  { id: 2, price: 199, quantity: 1 },
+]);
+const discount = ref(0.8); // 折扣
+
+// 派生：购物车总价（原价*数量*折扣）
+const totalPrice = computed(() => {
+  const originTotal = cartItems.value.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+  return (originTotal * discount.value).toFixed(2);
+});
+
+// 示例2：表单是否可提交（多字段校验）
+const form = ref({ username: "", password: "", agree: false });
+const canSubmit = computed(() => {
+  // 用户名非空 + 密码长度≥6 + 同意协议
+  return (
+    form.value.username && form.value.password.length >= 6 && form.value.agree
+  );
+});
+```
+
+- **双向绑定的复杂值处理（带 setter 的计算属性）**
+
+需要对[双向绑定](/vue/directive.md#双向绑定)的数据做 “读写分离” 处理（如 v-model 绑定的数值需做范围限制、格式转换）
+
+```js
+// Vue 2 带 setter 的计算属性（金额输入框：用户输入元，实际存储分）
+data() {
+  return {
+    amountInCent: 0 // 实际存储：分
+  };
+},
+computed: {
+  amountInYuan: {
+    // 读：分转元（展示给用户）
+    get() {
+      return (this.amountInCent / 100).toFixed(2);
+    },
+    // 写：用户输入元 → 转为分存储
+    set(val) {
+      const num = Number(val);
+      if (isNaN(num)) {
+        this.amountInCent = 0;
+        return;
+      }
+      // 限制金额范围：≥0
+      this.amountInCent = Math.max(0, Math.round(num * 100));
+    }
+  }
+}
+
+// 模板中双向绑定
+// <input v-model="amountInYuan" type="number" placeholder="请输入金额（元）">
+```
+
+- **依赖缓存优化**
+
+模板中需要多次访问同一计算结果（如页面多处展示同一派生值），用 computed 缓存替代 methods 重复执行。
+
+```js
+// computed 仅在 firstName/lastName 变化时计算一次，多次访问取缓存
+computed: {
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+// 模板中直接用：<div>{{ fullName }}</div> <span>{{ fullName }}</span>
+```
+
+- **状态判断**
+
+派生 “是否满足某个条件” 的布尔值（如是否登录、是否超出限制、是否选中全部），简化模板中的条件判断。
+
+```js
+// Vue 3 状态判断
+const user = ref({ isLogin: false, role: "guest" });
+const list = ref([{ checked: true }, { checked: false }]);
+
+// 是否登录
+const isLoggedIn = computed(() => user.value.isLogin);
+// 是否为管理员
+const isAdmin = computed(
+  () => user.value.isLogin && user.value.role === "admin"
+);
+// 是否选中全部列表项
+const isAllChecked = computed(() => list.value.every((item) => item.checked));
+```
+
 ## 初始化 watch
 
-### initWatch 源码
+### initWatch 源码流程
+
+`$watch`是 **initWatch** 的核心。在初始化 **computed** 后，会执行 `initWatch` 函数来初始化用户定义的 **watch** 配置。
 
 :::code-group
 
@@ -699,3 +1232,361 @@ Vue.prototype.$watch = function (expOrFn, cb, options) {
 ```
 
 :::
+
+将源码转换为流程图我们可以得到：
+
+```text
+initWatch(vm, watch)
+    |
+    v
+遍历 watch 对象
+    |
+    |-------------------------------
+    |                              |
+Array.isArray(handler)           不是数组
+    |                              |
+    v                              v
+遍历数组中的每个 handler        createWatcher(vm, key, handler)
+    |                              |
+    v                              v
+createWatcher(vm, key, handler[i]) 处理 handler
+    |                              |
+    |------------------------------|
+    |
+    v
+handler 是对象？ → 提取 handler.handler
+    |
+    v
+handler 是字符串？ → 从 vm[handler] 获取方法
+    |
+    v
+调用 vm.$watch(expOrFn, handler, options)
+    |
+    v
+创建 Watcher 实例
+    |
+    v
+返回 unwatch 函数（但 initWatch 中不保存）
+```
+
+**自定义 watch 的完整生命周期**:
+
+```js
+// 数据变化时
+data: { count: 0 }
+
+// 修改数据
+this.count++
+
+// 执行流程：
+1. count setter 触发
+2. dep.notify() → 通知所有 watcher
+3. watcher.update() 被调用
+4. queueWatcher(watcher) → 加入队列
+5. nextTick(flushSchedulerQueue) → 异步执行
+6. 执行 watcher.run() → 调用回调
+
+```
+
+### 深度观察
+
+在`vm.$watch`时，传入三个入参 expOrFn, handler, options，其中:
+
+- expOrFn 是要观察的表达式或函数
+- handler 是回调函数或者配置对象
+- **options** 是可选的观察选项。
+
+::: tip 其中 options 中可以配置深度观察、立即执行等选项。
+
+- immediate: Boolean 立即执行
+- deep: Boolean 深度观察
+- sync: Boolean 同步执行
+
+:::
+当配置 **deep** 为 true 时，会深度观察对象内部属性的变化。这对于监听复杂数据结构非常有用。
+
+:::code-group
+
+```js [ get ]
+Watcher.prototype.get = function () {
+  pushTarget(this); // 1. 设置当前 watcher 为依赖收集目标
+  var value;
+  var vm = this.vm;
+  try {
+    value = this.getter.call(vm, vm); // 2. 执行 getter，触发初始依赖收集
+  } finally {
+    // 3. 关键：深度遍历收集依赖
+    if (this.deep) traverse(value); // 深度遍历对象
+    popTarget(); // 4. 恢复之前的 watcher
+    this.cleanupDeps(); // 5. 清理旧依赖
+  }
+  return value;
+};
+
+var seenObjects = new _Set(); // 存储已访问对象的 ID，防止循环引用
+
+function traverse(val) {
+  _traverse(val, seenObjects); // 深度遍历
+  seenObjects.clear(); // 清空集合，避免内存泄漏
+  return val; // 返回原值（方便链式调用）
+}
+```
+
+```js [ traverse ]
+// 用于深度遍历对象以收集所有嵌套属性的依赖
+function _traverse(val, seen) {
+  var i, keys; // 循环变量
+  var isA = isArray(val); // 判断是否为数组
+  if (
+    (!isA && !isObject(val)) || // 条件1：不是数组也不是对象
+    val.__v_skip || // 条件2：标记了跳过响应式
+    Object.isFrozen(val) || // 条件3：对象被冻结
+    val instanceof VNode // 条件4：虚拟DOM节点
+  ) {
+    return; // 不再继续递归
+  }
+  if (val.__ob__) {
+    // 如果对象是响应式的（有 Observer 实例）
+    var depId = val.__ob__.dep.id; // 获取依赖收集器的唯一ID
+    if (seen.has(depId)) {
+      return; // 已经访问过这个对象，防止无限递归
+    }
+    seen.add(depId); // 记录这个对象已被访问
+  }
+  if (isA) {
+    // 处理数组情况
+    i = val.length;
+    // 倒序遍历， 比 for 循环更快（少一次变量声明和比较）
+    while (i--) _traverse(val[i], seen); // val[i]触发响应式数据 getter 收集依赖 // [!code hl]
+  } else if (isRef(val)) {
+    _traverse(val.value, seen); // ref 对象（Vue 3 特有）访问 .value 属性  // [!code hl]
+  } else {
+    keys = Object.keys(val);
+    i = keys.length;
+    while (i--) _traverse(val[keys[i]], seen); // 普通对象 遍历循环 // [!code hl]
+  }
+}
+```
+
+:::
+
+这个函数是 Vue 响应式系统实现 深度观察（deep watch） 的核心机制，确保即使对象嵌套很深，任何属性的变化都能被检测到并触发更新。
+
+### watch 的各种写法
+
+**写法 1：函数形式（最常用）**:
+
+```js
+watch: {
+  // 直接定义函数
+  count(newVal, oldVal) {
+    console.log('count changed:', newVal, oldVal);
+  }
+}
+```
+
+写法 2：字符串形式（方法名）
+
+```js
+methods: {
+  onCountChanged(newVal, oldVal) {
+    console.log('count changed');
+  }
+},
+watch: {
+  count: 'onCountChanged'  // 指向 methods 中的方法
+}
+```
+
+**写法 3：对象形式（配置选项）**:
+
+```js
+watch: {
+  count: {
+    handler(newVal, oldVal) {
+      console.log('count changed');
+    },
+    deep: true,      // 深度观察
+    immediate: true, // 立即执行
+    flush: 'sync'    // 同步执行
+  }
+}
+```
+
+**写法 4：数组形式（多个处理器）**:
+
+```js
+watch: {
+  count: [
+    // 处理器1：函数
+    function handler1(newVal, oldVal) {
+      console.log("handler1");
+    },
+    // 处理器2：方法名
+    "onCountChanged",
+    // 处理器3：对象形式
+    {
+      handler: function handler3(newVal, oldVal) {
+        console.log("handler3");
+      },
+      immediate: true,
+    },
+  ];
+}
+```
+
+### 使用场景
+
+**实时数据联动**：
+
+筛选条件、查询参数变更后，实时更新列表、图表或统计数据（如电商商品筛选、后台管理系统的表格筛选）。
+
+```js
+// 避免在 handler 中写过重的逻辑（如大量 DOM 操作），否则会导致页面卡顿。
+
+// Vue 2 选项式
+watch: {
+  filterType: {
+    handler(val) {
+      // 筛选条件变化 → 重新请求列表数据
+      this.fetchGoodsList(val);
+    },
+    immediate: true // 页面加载时先执行一次，初始化列表
+  }
+}
+
+// Vue 3 组合式
+watch(() => filterType, (val) => {
+  fetchGoodsList(val);
+}, { immediate: true });
+```
+
+**表单实时验证**：
+
+表单字段变更时实时验证（如手机号格式、密码强度、验证码长度校验），提升用户体验
+
+```js
+// Vue 2 带防抖的手机号验证
+import { debounce } from 'lodash';
+watch: {
+  phone: {
+    handler: debounce(function(val) {
+      this.phoneValid = /^1[3-9]\d{9}$/.test(val); // 验证手机号格式
+    }, 300), // 输入防抖 300ms，避免频繁校验
+    immediate: true
+  }
+}
+```
+
+**[防抖](/javascript/es6.md) / [节流](/javascript/throttle.md)**：
+
+数据变化触发异步请求（如搜索联想、分页切换、筛选条件提交）。
+
+```js
+// Vue 3 搜索联想请求（带错误处理）
+watch(
+  () => searchKey,
+  async (val) => {
+    if (!val) {
+      this.suggestList = [];
+      return;
+    }
+    try {
+      // 防抖后请求接口，避免频繁调用
+      const res = await getSearchSuggest(val);
+      this.suggestList = res.data;
+    } catch (err) {
+      this.$message.error("联想词加载失败"); // 必须加错误处理
+    }
+  },
+  {
+    handler: debounce(handler, 300),
+    immediate: true,
+  }
+);
+```
+
+**路由参数监听**：
+
+监听路由参数 / 路径变化（如详情页切换 ID 重新请求数据、标签页切换更新页面内容）。
+
+```js
+// Vue 2 监听路由 ID 参数
+watch: {
+  '$route.params.id': {
+    handler(val) {
+      this.fetchDetail(val); // ID 变化 → 重新请求详情
+    },
+    immediate: true
+  }
+}
+
+// Vue 3 组合式API
+import { useRoute } from 'vue-router';
+const route = useRoute();
+watch(() => route.params.id, (val) => {
+  fetchDetail(val);
+}, { immediate: true });
+```
+
+**组件间状态联动（跨组件通信）**：
+
+监听父组件传递的 props、全局状态（如 Vuex/Pinia）变化，实现子组件状态联动。
+
+```js
+// Vue 2 子组件监听 props 变化
+props: ['parentValue'],
+watch: {
+  parentValue: {
+    handler(val) {
+      this.childValue = val; // 同步父组件值到子组件
+      // 如需回传，配合 $emit
+      this.$emit('update:parentValue', val + 1);
+    },
+    immediate: true
+  }
+}
+```
+
+**动画 / DOM 操作触发**：
+
+数据变更后执行 DOM 操作、动画效果（如列表更新后滚动到指定位置、元素显隐动画）。
+
+```js
+// 配合 $nextTick（确保 DOM 已更新），避免操作未渲染的 DOM。
+// Vue 2 列表更新后滚动到底部
+watch: {
+  listData: {
+    handler() {
+      this.$nextTick(() => {
+        // DOM 已更新，执行滚动操作
+        const scrollBox = this.$refs.scrollBox;
+        scrollBox.scrollTop = scrollBox.scrollHeight;
+      });
+    },
+    deep: true
+  }
+}
+```
+
+**状态缓存 / 过期清理**：
+
+监听缓存数据变化，设置过期时间（如本地缓存的用户信息、临时筛选条件）。
+
+```js
+// Vue 3 监听缓存状态，设置过期清理
+let cacheTimer = null;
+watch(
+  () => cacheData,
+  (val) => {
+    // 清除旧定时器
+    clearTimeout(cacheTimer);
+    // 5 分钟后清理缓存
+    cacheTimer = setTimeout(() => {
+      this.cacheData = null;
+      localStorage.removeItem("cacheKey");
+    }, 5 * 60 * 1000);
+  },
+  { immediate: true }
+);
+```

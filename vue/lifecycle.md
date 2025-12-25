@@ -1,3 +1,17 @@
-# 声明周期
+# 生命周期
 
-即将到来
+## beforeCreate
+
+## created
+
+## beforeMount
+
+## mounted
+
+## beforeUpdate
+
+## updated
+
+## beforeDestroy
+
+## destroyed

@@ -56,7 +56,7 @@ Step2. 编写 html 结构，Script 中创建 Vue 实例。
 
 ```html
 <div id="app">
-  <p>计数: {{ count }}</p>
+  <p>{{ countStr }}</p>
   <button @click="count++">点击 +1</button>
 </div>
 
@@ -67,6 +67,16 @@ Step2. 编写 html 结构，Script 中创建 Vue 实例。
       return {
         count: 0,
       };
+    },
+    computed: {
+      countStr() {
+        return `当前计数: ${this.count}`;
+      },
+    },
+    watch: {
+      count(newVal, oldVal) {
+        console.log(`当前计数: ${newVal}`);
+      },
     },
   });
 </script>
@@ -110,9 +120,9 @@ function initMixin(Vue) {
 
 ::: code-group
 
-```html [index.html]
+```html
 <div id="app">
-  <p>计数: {{ count }}</p>
+  <p>{{ countStr }}</p>
   <button @click="count++">点击 +1</button>
 </div>
 
@@ -127,7 +137,27 @@ function initMixin(Vue) {
       return {
         // [!code focus]
         count: 0,
-      }; // [!code focus]
+        // [!code focus]
+      };
+      // [!code focus]
+    },
+    // [!code focus]
+    computed: {
+      // [!code focus]
+      countStr() {
+        // [!code focus]
+        return `当前计数: ${this.count}`;
+        // [!code focus]
+      },
+      // [!code focus]
+    },
+    // [!code focus]
+    watch: {
+      // [!code focus]
+      count(newVal, oldVal) {
+        // [!code focus]
+        console.log(`当前计数: ${newVal}`); // [!code focus]
+      }, // [!code focus]
     }, // [!code focus]
   }); // [!code focus]
 </script>
