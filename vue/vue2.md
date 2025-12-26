@@ -52,7 +52,7 @@ Step1. 通过 CDN 的方式引用 Vue.js 到你的 HTML 中
 
 ### 创建 Vue 实例
 
-Step2. 编写 html 结构，Script 中创建 Vue 实例。
+Step2. 编写 html 结构、Script 中创建 Vue 实例,并配置构造函数的参数 [options](/vue/options.md)。
 
 ```html
 <div id="app">

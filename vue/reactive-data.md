@@ -31,6 +31,9 @@ function initMixin(Vue) {
     var vm = this; // 保存当前实例引用
     // ... 忽略部分代码 ...
 
+    initLifecycle(vm); // 初始化生命周期相关属性，但不触发任何钩子函数
+    initEvents(vm); // 初始化事件监听器，但不触发任何事件
+    initRender(vm); // 初始化渲染函数，但不挂载到 DOM
     // 调用 beforeCreate 生命周期钩子 | 此时：数据观测、事件/侦听器配置还未初始化
     callHook$1(vm, "beforeCreate", undefined, false /* setContext */);
 
