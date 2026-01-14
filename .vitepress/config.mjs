@@ -1,7 +1,24 @@
 import { defineConfig } from "vitepress";
+import path from 'path'
+import { fileURLToPath } from 'url';
+  
 
+// 获取当前文件目录（ESM方式）
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+
+// https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs 表情包支持
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+     
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, '../components'),
+      },
+    }
+
+  },
   // 设置站点 favicon.ico | 运行时与部署时去哪里加载资源？
   head: [
     ["link", { rel: "icon", href: "/logo.svg" }],
@@ -40,10 +57,13 @@ export default defineConfig({
   cleanUrls: true,
   assetsDir: "static",
   markdown: {
+     // lineNumbers: true, // 配置代码款是否显示行号
+    
+
     // 配置代码块样式
     theme: "material-theme-palenight", // 其他内置主题参考： material-theme-palenight | github-dark | github-light | dracula | monokai 等
 
-    // lineNumbers: true, // 配置代码款是否显示行号
+   
   },
 
   themeConfig: {
@@ -118,6 +138,8 @@ export default defineConfig({
           items: [
             { text: "HTML 元素", link: "/html/html-elements.md" },
             { text: "HTML 属性", link: "/html/html-attributes.md" },
+            { text: "DOM", link: "/html/dom.md" },
+            { text: "BOM", link: "/html/bom.md" },
             { text: "SVG", link: "/html/svg.md" },
           ],
         },
@@ -171,7 +193,7 @@ export default defineConfig({
                 { text: "构造器参数", link: "/vue/options.md" },
                 { text: "响应式系统", link: "/vue/reactive-data.md" },
                 { text: "模板编译", link: "/vue/template-compiler.md" },
-                { text: "DOM挂载", link: "/vue/dom-mount.md" },
+                { text: "视图渲染", link: "/vue/view-rendering.md" },
                 { text: "AST语法树", link: "/vue/ast.md" },
                 { text: "生命周期", link: "/vue/lifecycle.md" },
                 { text: "指令集合", link: "/vue/directive.md" },
@@ -196,15 +218,31 @@ export default defineConfig({
           text: "其他",
           items: [
             {
+              text: "组件广场",
+              items: [
+                { text: "组件导航", link: "/others/component/playground.md" },
+                 
+              ],
+            },
+            {
               text: "设计模式",
               items: [
                 { text: "单例模式", link: "/others/design/singleton.md" },
                 { text: "代理模式", link: "/others/design/proxy.md" },
                 { text: "观察者模式", link: "/others/design/observer.md" },
+                { text: "工厂模式", link: "/others/design/factory.md" },
                 {
                   text: "发布订阅模式",
                   link: "/others/design/publish-subscribe.md",
                 },
+              ],
+            },
+            {
+              text: "算法",
+              items: [
+                { text: "概念", link: "/others/algorithm/algorithm.md" },
+                { text: "冒泡排序", link: "/others/algorithm/bubble-sort.md" },
+                { text: "快速排序", link: "/others/algorithm/quicksort.md" },
               ],
             },
             { text: "负载均衡", link: "/others/load-balancing.md" },
