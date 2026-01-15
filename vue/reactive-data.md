@@ -248,7 +248,7 @@ var Dep = /** @class */ (function () {
 
 :::
 
-vue 响应式数据的设计思想应用了[发布订阅模式](/others//design/publish-subscribe.md)<br>
+vue 响应式数据的设计思想应用了[发布订阅模式](/others/design/publish-subscribe.md)<br>
 我们先来看`Dep` 实例:
 
 - 内部维护了一个订阅者列表 `subs`，用于存储所有依赖该属性的 观察者`Watcher` 实例。
@@ -914,7 +914,7 @@ computedGetter() {
 // 下次访问时会重新计算
 ```
 
-**这种设计实际上是[代理模式](/others//design/proxy.md)的应用：**
+**这种设计实际上是[代理模式](/others/design/proxy.md)的应用：**
 
 - defineComputed 是代理（Proxy）
 - Watcher 是真实主题（Real Subject）
