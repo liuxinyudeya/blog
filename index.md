@@ -4,30 +4,36 @@ layout: home
 
 hero:
   name: "liuxy blog"
-  text: "由 Vite 和 Vue 驱动的静态站点生成器"
-  tagline: "将 Markdown 变成优雅的文档，只需几分钟"
+  text: 前端技术栈博客
+  tagline: "html、javascript、css、vue 等技术栈博客分享。"
   image:
     src: /logo.svg
     alt: LiuxyBlog
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 随便看看
+      link: /others/design
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 案例演示
+      link: /others/component/playground
 
 features:
-  - title: 专注内容
-    details: 只需 Markdown 即可轻松创建美观的文档站点。
-    icon: 📝
-  - title: Feature B
-    details: 采用静态 HTML 实现快速的页面初次加载，使用客户端路由实现快速的页面切换导航。
-    icon: 📝
-  - title: 享受 Vite 无可比拟的体验
-    details: 采用静态 HTML 实现快速的页面初次加载，使用客户端路由实现快速的页面切换导航。
-    icon: 📝
-  - title: 享受 Vite 无可比拟的体验
-    details: 采用静态 HTML 实现快速的页面初次加载，使用客户端路由实现快速的页面切换导航。
-    icon: 📝
+  - title: HTML
+    details: html元素、html属性、dom、bom、svg等。
+    link: /html/html-elements
+    linkText: 去看看
+    icon:
+      src: /icon/html.svg
+  - title: JavaScript
+    details: ES6、TypeScript、原型链、闭包、节流防抖、柯里化函数等
+    link: /js/javascript
+    linkText: 去看看
+    icon:
+      src: /icon/js.svg
+  - title: CSS
+    details: css3、less、sass、tailwindcss等。
+    link: /css/css3
+    linkText: 去看看
+    icon:
+      src: /icon/css.svg
 ---

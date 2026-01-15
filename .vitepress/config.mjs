@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 // 获取当前文件目录（ESM方式）
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
+// https://docs.fontawesome.com 图标网站
 // https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.mjs 表情包支持
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -74,7 +74,7 @@ export default defineConfig({
     logo: "/logo-mini.svg",
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      { icon: "github", link: "https://github.com/liuxinyudeya" },
     ],
     search: {
       provider: "local",
@@ -108,12 +108,12 @@ export default defineConfig({
       { text: "首页", link: "/" },
       {
         text: "HTML",
-        link: "/html/html-elements.md",
+        link: "/html/html5.md",
       },
       {
         text: "CSS",
         items: [
-          { text: "css3", link: "/css/css.md" },
+          { text: "css3", link: "/css/css3.md" },
           { text: "tailwindcss", link: "/css/tailwindcss.md" },
           { text: "less", link: "/css/less.md" },
           { text: "sass", link: "/css/sass.md" },
@@ -122,8 +122,8 @@ export default defineConfig({
       {
         text: "JavaScript",
         items: [
-          { text: "JavaScript", link: "/javascript/javascript.md" },
-          { text: "TypeScript", link: "/javascript/typescript.md" },
+          { text: "JavaScript", link: "/js/javascript.md" },
+          { text: "TypeScript", link: "/js/typescript.md" },
         ],
       },
 
@@ -169,11 +169,12 @@ export default defineConfig({
         {
           text: "HTML",
           items: [
+            { text: "HTML5", link: "/html/html5.md" },
             { text: "HTML 元素", link: "/html/html-elements.md" },
             { text: "HTML 属性", link: "/html/html-attributes.md" },
             { text: "DOM", link: "/html/dom.md" },
             { text: "BOM", link: "/html/bom.md" },
-            { text: "SVG", link: "/html/svg.md" },
+            
           ],
         },
       ],
@@ -181,7 +182,7 @@ export default defineConfig({
         {
           text: "CSS",
           items: [
-            { text: "CSS3", link: "/css/css.md" },
+            { text: "CSS3", link: "/css/css3.md" },
             { text: "TailwindCSS", link: "/css/tailwindcss.md" },
             { text: "Less", link: "/css/less.md" },
             { text: "Sass", link: "/css/sass.md" },
@@ -192,15 +193,15 @@ export default defineConfig({
         {
           text: "JavaScript",
           items: [
-            { text: "ES6+", link: "/javascript/es6.md" },
-            { text: "JavaScript", link: "/javascript/javascript.md" },
-            { text: "TypeScript", link: "/javascript/typescript.md" },
-            { text: "防抖", link: "/javascript/debounce.md" },
-            { text: "节流", link: "/javascript/throttle.md" },
-            { text: "原型链", link: "/javascript/prototype.md" },
-            { text: "闭包", link: "/javascript/closure.md" },
-            { text: "柯里化函数", link: "/javascript/currying.md" },
-            { text: "匿名参数", link: "/javascript/anonymous.md" },
+            { text: "ES6+", link: "/js/es6.md" },
+            { text: "JavaScript", link: "/js/javascript.md" },
+            { text: "TypeScript", link: "/js/typescript.md" },
+            { text: "防抖", link: "/js/debounce.md" },
+            { text: "节流", link: "/js/throttle.md" },
+            { text: "原型链", link: "/js/prototype.md" },
+            { text: "闭包", link: "/js/closure.md" },
+            { text: "柯里化函数", link: "/js/currying.md" },
+            { text: "匿名参数", link: "/js/anonymous.md" },
           ],
         },
       ],
@@ -284,6 +285,7 @@ export default defineConfig({
             { text: "网络与协议", link: "/others/network.md" },
             { text: "开发工具", link: "/others/devtools.md" },
             { text: "Linux", link: "/others/linux.md" },
+            { text: "SVG", link: "/others/svg.md" },
           ],
         },
       ],
