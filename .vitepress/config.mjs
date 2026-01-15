@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import path from 'path'
 import { fileURLToPath } from 'url';
-  
+
 
 // 获取当前文件目录（ESM方式）
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
-     
+
     resolve: {
       alias: {
         '@components': path.resolve(__dirname, '../components'),
@@ -38,38 +38,71 @@ export default defineConfig({
   ],
 
   lang: "zh-CN",
-  locales: {
-    root: {
-      label: "简体中文",
-      lang: "zh-CN",
-      link: "/",
-    },
+  // locales: {
+  //   root: {
+  //     label: "简体中文",
+  //     lang: "zh-CN",
+  //     link: "/",
+  //   },
 
-    en: {
-      label: "English",
-      lang: "en-US",
-      title: "My Documentation",
-      description: "Documentation powered by VitePress",
-    },
-  },
+  //   en: {
+  //     label: "English",
+  //     lang: "en-US",
+  //     title: "My Documentation",
+  //     description: "Documentation powered by VitePress",
+  //   },
+  // },
   title: "liuxy blog",
   description: "liuxinyude blog",
   cleanUrls: true,
   assetsDir: "static",
   markdown: {
-     // lineNumbers: true, // 配置代码款是否显示行号
-    
+    // lineNumbers: true, // 配置代码款是否显示行号 
 
     // 配置代码块样式
     theme: "material-theme-palenight", // 其他内置主题参考： material-theme-palenight | github-dark | github-light | dracula | monokai 等
 
-   
+
   },
 
   themeConfig: {
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到亮色模式',
+    darkModeSwitchTitle: '切换到暗色模式',
+
+    logoDark: "/logo-dark.svg",
     logo: "/logo-mini.svg",
+
+    socialLinks: [
+      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+    ],
+    search: {
+      provider: "local",
+      options: {
+        locales: {
+          root: {
+            translations: {
+              button: {
+                buttonText: "搜索文档",
+                buttonAriaLabel: "搜索文档",
+              },
+              modal: {
+                noResultsText: "无法找到相关结果",
+                footer: {
+                  selectText: "选择",
+                  navigateText: "切换",
+                  closeText: "关闭",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+
     // 外部链接是否显示箭头图标
     externalLinkIcon: true,
+
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "首页", link: "/" },
@@ -221,7 +254,7 @@ export default defineConfig({
               text: "组件广场",
               items: [
                 { text: "组件导航", link: "/others/component/playground.md" },
-                 
+
               ],
             },
             {
@@ -254,38 +287,13 @@ export default defineConfig({
           ],
         },
       ],
-    },
-    socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
-    ],
+    }, 
     outline: {
       label: "本页目录",
       level: [2, 3, 4],
       position: "right",
     },
-    search: {
-      provider: "local",
-      options: {
-        locales: {
-          root: {
-            translations: {
-              button: {
-                buttonText: "搜索文档",
-                buttonAriaLabel: "搜索文档",
-              },
-              modal: {
-                noResultsText: "无法找到相关结果",
-                footer: {
-                  selectText: "选择",
-                  navigateText: "切换",
-                  closeText: "关闭",
-                },
-              },
-            },
-          },
-        },
-      },
-    },
+    
     // 开启编辑时间
     lastUpdated: {
       text: "上次更新",
@@ -298,11 +306,13 @@ export default defineConfig({
       prev: "上一篇",
       next: "下一篇",
     },
+    
     footer: {
       message:
         'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
       copyright:
         'Copyright © 2025-present <a href="https://github.com/liuxinyudeya">刘心宇</a>',
     },
+    
   },
 });
