@@ -26,7 +26,7 @@ patch() → diff → DOM 操作
 
 ## Vue 的渐进式
 
-Vue 是一个[渐进式框架](/vue/progressive.md)，这意味着你可以根据需要选择性地引入 Vue 的不同部分。
+Vue 是一个[渐进式框架](/vue/vue2/progressive.md)，这意味着你可以根据需要选择性地引入 Vue 的不同部分。
 
 对于下述示例，在使渲染视图的过程中我们可以清晰的感受到这一点:
 
@@ -459,7 +459,7 @@ var _a = createCompiler(baseOptions); // 这里调用的是步骤2中的 createC
 
 `parse` 生成 AST
 
-[AST](/vue/ast.md)（Abstract Syntax Tree，抽象语法树） 是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。
+[AST](/vue/vue2/ast.md)（Abstract Syntax Tree，抽象语法树） 是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。
 :::code-group
 
 ```js [parse]

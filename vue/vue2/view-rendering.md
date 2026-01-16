@@ -24,7 +24,7 @@ VueJs 有 `完整` 和 `运行时` 两个版本。
 案例涉及的 Vue 特性有：
 
 1. vue 内置指令
-   - [v-pre](/vue/directive.md#v-pre)、[v-once](/vue/directive.md#v-once)、[v-bind](/vue/directive.md#v-bind)、[v-on](/vue/directive.md#v-on)、[v-model](/vue/directive.md#v-model)、[v-show](/vue/directive.md#v-show)、[v-if](/vue/directive.md#v-if)、[v-for](/vue/directive.md#v-for)
+   - `v-pre、v-once、v-bind、v-on、v-model、v-show、v-if、v-for`
 2. 父子组件通信
 3. 插槽与作用域
 

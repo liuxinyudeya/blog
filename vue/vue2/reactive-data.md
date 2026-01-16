@@ -82,7 +82,7 @@ function initState(vm) {
 
 :::
 
-在`_init`中我们会看到 [Vue 生命周期](/vue/lifecycle.md) 的前两个钩子函数：`beforeCreate`、`created`。
+在`_init`中我们会看到 `Vue 生命周期` 的前两个钩子函数：`beforeCreate`、`created`。
 
 他们分别在 `initState` 函数之前、之后执行。
 
@@ -1089,7 +1089,7 @@ const canSubmit = computed(() => {
 
 - **双向绑定的复杂值处理（带 setter 的计算属性）**
 
-需要对[双向绑定](/vue/directive.md#双向绑定)的数据做 “读写分离” 处理（如 v-model 绑定的数值需做范围限制、格式转换）
+需要对 `双向绑定` 的数据做 “读写分离” 处理（如 v-model 绑定的数值需做范围限制、格式转换）
 
 ```js
 // Vue 2 带 setter 的计算属性（金额输入框：用户输入元，实际存储分）

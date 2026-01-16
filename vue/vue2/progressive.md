@@ -62,7 +62,7 @@
 - 传统网站中的局部交互
 - 教学演示
 
-技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css3/css3.md) + [Vue.js](/vue/vue2.md)
+技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css3/css3.md) + [Vue.js](/vue/vue2/vue2.md)
 
 ## 阶段 2：中级
 
@@ -119,11 +119,11 @@ export default {
 - 需要组件复用的场景
 - 团队协作项目
 
-技术栈：HTML + [ES6 Modules](/js/es6.md) + Vue(runtime)
+技术栈：HTML + [ES6 Modules](/js/ecmascript/ecmascript.md) + Vue(runtime)
 
 ## 阶段 3：专业级
 
-**[构建工具](/build/webpack.md) + [单文件组件](/vue/SFC.md)**：
+**[构建工具](/build/webpack/webpack.md) + 单文件组件**：
 
 :::code-group
 
@@ -265,7 +265,7 @@ my-vue-app/
 - 构建优化：代码分割、懒加载、tree-shaking
 - 开发工具：Vue Devtools、热重载
 
-技术栈：[Vue CLI + Webpack/Vite](/build/vue-cli.md) + [Vue Router](/vue/router.md) + [Vuex](/vue/vuex.md) + [ESLint](/others/eslint.md) + Jest
+技术栈：[Vue CLI + Webpack/Vite](/build/vue-cli/vue-cli.md) + [Vue Router](/vue/router.md) + [Vuex](/vue/vuex.md) + [ESLint](/others/eslint/eslint.md) + Jest
 
 ## 渐进式迁移路径示例
 
