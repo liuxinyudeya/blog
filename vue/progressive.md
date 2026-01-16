@@ -119,7 +119,7 @@ export default {
 - 需要组件复用的场景
 - 团队协作项目
 
-技术栈：HTML + [ES6 Modules](js/es6.md) + Vue(runtime)
+技术栈：HTML + [ES6 Modules](/js/es6.md) + Vue(runtime)
 
 ## 阶段 3：专业级
 
