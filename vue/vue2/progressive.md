@@ -265,7 +265,7 @@ my-vue-app/
 - 构建优化：代码分割、懒加载、tree-shaking
 - 开发工具：Vue Devtools、热重载
 
-技术栈：[Vue CLI + Webpack/Vite](/build/vue-cli/vue-cli.md) + [Vue Router](/vue/router.md) + [Vuex](/vue/vuex.md) + [ESLint](/others/eslint/eslint.md) + Jest
+技术栈：[Vue CLI + Webpack/Vite](/build/vue-cli/vue-cli.md) + [Vue Router](/vue/router.md) + [Vuex](/vue/vuex.md) + [ESLint](/others/devtools/eslint.md) + Jest
 
 ## 渐进式迁移路径示例
 
