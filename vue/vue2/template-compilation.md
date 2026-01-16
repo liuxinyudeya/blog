@@ -450,7 +450,7 @@ var _a = createCompiler(baseOptions); // 这里调用的是步骤2中的 createC
    // 两者共享相同的 baseCompile 核心逻辑
    ```
 
-3. [柯里化](/js/currying.md)（Currying）
+3. [柯里化](/js/javascript/javascript.md)（Currying）
    柯里化形式：`createCompilerCreator(baseCompile)(baseOptions)(template, options)`
 
    每一步都固定一些参数，最终得到特定平台的编译函数

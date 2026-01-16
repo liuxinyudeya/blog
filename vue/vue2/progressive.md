@@ -62,7 +62,7 @@
 - 传统网站中的局部交互
 - 教学演示
 
-技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css3.md) + [Vue.js](/vue/vue2.md)
+技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css3/css3.md) + [Vue.js](/vue/vue2.md)
 
 ## 阶段 2：中级
 

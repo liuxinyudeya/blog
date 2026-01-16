@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "liuxy blog"
   text: 前端技术栈博客
-  tagline: "html、javascript、css、vue 等技术栈博客分享。"
+  tagline: "HTML、JavaScript、CSS、Vue 等技术栈博客分享"
   image:
     src: /logo.svg
     alt: LiuxyBlog
@@ -19,25 +19,25 @@ hero:
 
 features:
   - title: HTML
-    details: html元素与属性、DOM(文档对象模型)、BOM(浏览器对象模型等)。
+    details: HTML语义化标签与表单增强、Web存储与离线应用等核心特性。
     link: /html/html-elements
     linkText: 去看看
     icon:
       src: /icon/html.svg
   - title: CSS
-    details: css3的选择器、弹性盒、以及less、sass、tailwindcss等。
-    link: /css/css3
+    details: CSS3选择器与盒模型、现代布局、Less/Sass预处理器等。
+    link: /css/css3/css3
     linkText: 去看看
     icon:
       src: /icon/css.svg
   - title: JavaScript
-    details: ES6、TypeScript、原型链、闭包、节流防抖、柯里化函数等
-    link: /js/javascript
+    details: 原型链与闭包、异步编程与事件循环、函数式编程等。
+    link: /js/javascript/javascript
     linkText: 去看看
     icon:
       src: /icon/js.svg
   - title: Vue
-    details: Vue响应式系统、模板编译、视图渲染等、Vue-Router、Vuex等。
+    details: Vue响应式原理、模板编译、Vue Router、Vuex/Pinia状态管理等。
     link: /vue/vue2
     linkText: 去看看
     icon:

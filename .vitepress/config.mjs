@@ -2,7 +2,6 @@ import { defineConfig } from "vitepress";
 import path from 'path'
 import { fileURLToPath } from 'url';
 
-
 // 获取当前文件目录（ESM方式）
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,7 +16,6 @@ export default defineConfig({
         '@components': path.resolve(__dirname, '../components'),
       },
     }
-
   },
   // 设置站点 favicon.ico | 运行时与部署时去哪里加载资源？
   head: [
@@ -60,8 +58,7 @@ export default defineConfig({
     // lineNumbers: true, // 配置代码款是否显示行号 
 
     // 配置代码块样式
-    theme: "material-theme-palenight", // 其他内置主题参考： material-theme-palenight | github-dark | github-light | dracula | monokai 等
-
+    theme: "material-theme-palenight", // 其他内置主题参考： material-theme-palenight | github-dark | github-light | dracula | monokai 等  
 
   },
 
@@ -107,22 +104,23 @@ export default defineConfig({
       { text: "首页", link: "/" },
       {
         text: "HTML",
-        link: "/html/html5.md",
+        link: "/html/html5/html5.md",
       },
       {
         text: "CSS",
         items: [
-          { text: "css3", link: "/css/css3.md" },
-          { text: "tailwindcss", link: "/css/tailwindcss.md" },
-          { text: "less", link: "/css/less.md" },
-          { text: "sass", link: "/css/sass.md" },
+          { text: "css3", link: "/css/css3/css3.md" },
+          { text: "less", link: "/css/less/less.md" },
+          { text: "sass", link: "/css/sass/sass.md" },
+          { text: "tailwindcss", link: "/css/tailwindcss/tailwindcss.md" },
         ],
       },
       {
         text: "JavaScript",
         items: [
-          { text: "JavaScript", link: "/js/javascript.md" },
-          { text: "TypeScript", link: "/js/typescript.md" },
+          { text: "JavaScript", link: "/js/javascript/javascript.md" },
+          { text: "ECMAScript", link: "/js/ecmascript/ecmascript.md" },
+          { text: "TypeScript", link: "/js/typescript/typescript.md" },
         ],
       },
 
@@ -132,8 +130,8 @@ export default defineConfig({
           {
             text: "vue",
             items: [
-              { text: "vue2", link: "/vue/vue2.md" },
-              { text: "vue3", link: "/vue/vue3.md" },
+              { text: "vue2", link: "/vue/vue2/vue2.md" },
+              { text: "vue3", link: "/vue/vue3/vue3.md" },
             ],
           },
           {
@@ -152,90 +150,123 @@ export default defineConfig({
       {
         text: "构建工具",
         items: [
-          { text: "webpack", link: "/build/webpack.md" },
-          { text: "vue-cli", link: "/build/vue-cli.md" },
-          { text: "vite", link: "/build/vite.md" },
+          { text: "webpack", link: "/build/webpack/webpack.md" },
+          { text: "vue-cli", link: "/build/vue-cli/vue-cli.md" },
+          { text: "vite", link: "/build/vite/vite.md" },
         ],
       },
-
+      { text: "演练场", link: "/playground/playground.md" },
       {
         text: "其他",
-        link: "/others/design.md",
+        link: "/others/others.md",
       },
+
+
     ],
     sidebar: {
       "/html/": [
         {
-          text: "HTML",
+          text: "相关内容",
           items: [
-            { text: "HTML5", link: "/html/html5.md" },
-            { text: "HTML 元素", link: "/html/html-elements.md" },
-            { text: "HTML 属性", link: "/html/html-attributes.md" },
-            { text: "DOM", link: "/html/dom.md" },
-            { text: "BOM", link: "/html/bom.md" },
-
+            {
+              text: "HTML5",
+              collapsed: false,
+              items: [
+                { text: "HTML5", link: "/html/html5/html5.md" },
+              ]
+            },
           ],
         },
       ],
       "/css/": [
         {
-          text: "CSS",
+          text: "相关内容",
           items: [
-            { text: "CSS3", link: "/css/css3.md" },
-            { text: "TailwindCSS", link: "/css/tailwindcss.md" },
-            { text: "Less", link: "/css/less.md" },
-            { text: "Sass", link: "/css/sass.md" },
+            {
+              text: "CSS3",
+              collapsed: false,
+              items: [
+                { text: "目录导航", link: "/css/css3/css3.md" },
+              ]
+            },
+            {
+              text: "Less", collapsed: false, items: [
+                { text: "Less", link: "/css/less/less.md" },
+              ]
+            },
+            {
+              text: "Sass", collapsed: false, items: [
+                { text: "Sass", link: "/css/sass/sass.md" },
+              ]
+            },
+            {
+              text: "TailwindCSS", collapsed: false, items: [
+                { text: "TailwindCSS", link: "/css/tailwindcss/tailwindcss.md" },
+              ]
+            },
           ],
         },
       ],
-      "javascript/": [
+      "/js/": [
         {
-          text: "JavaScript",
+          text: "相关内容",
           items: [
-            { text: "ES6+", link: "/js/es6.md" },
-            { text: "JavaScript", link: "/js/javascript.md" },
-            { text: "TypeScript", link: "/js/typescript.md" },
-            { text: "防抖", link: "/js/debounce.md" },
-            { text: "节流", link: "/js/throttle.md" },
-            { text: "原型链", link: "/js/prototype.md" },
-            { text: "闭包", link: "/js/closure.md" },
-            { text: "柯里化函数", link: "/js/currying.md" },
-            { text: "匿名参数", link: "/js/anonymous.md" },
+            {
+              text: "JavaScript",
+              collapsed: false,
+              items: [
+                { text: "目录导航", link: "/js/javascript/javascript.md" },
+                { text: "DOM 文档对象模型 ", link: "/js/javascript/dom.md" },
+                { text: "BOM 浏览器对象模型", link: "/js/javascript/bom.md" },
+
+              ]
+            },
+
+            {
+              text: "ECMAScript",
+              collapsed: false,
+              items: [
+                { text: "ECMAScript", link: "/js/ecmascript/ecmascript.md" },
+              ]
+            },
+            {
+              text: "TypeScript",
+              collapsed: false,
+              items: [
+                { text: "TypeScript", link: "/js/typescript/typescript.md" },
+              ]
+            },
+
           ],
         },
       ],
-      "/build/": [
-        {
-          text: "构建工具",
-          items: [
-            { text: "webpack", link: "/build/webpack.md" },
-            { text: "vue-cli", link: "/build/vue-cli.md" },
-            { text: "vite", link: "/build/vite.md" },
-          ],
-        },
-      ],
+
       "/vue/": [
         {
           text: "Vue生态",
           items: [
             {
               text: "Vue2",
+              collapsed: false,
               items: [
-                { text: "Vuejs2", link: "/vue/vue2.md" },
-                { text: "单文件组件", link: "/vue/SFC.md" },
-                { text: "构造器参数", link: "/vue/options.md" },
-                { text: "响应式系统", link: "/vue/reactive-data.md" },
-                { text: "模板编译", link: "/vue/template-compiler.md" },
-                { text: "视图渲染", link: "/vue/view-rendering.md" },
-                { text: "AST语法树", link: "/vue/ast.md" },
-                { text: "生命周期", link: "/vue/lifecycle.md" },
-                { text: "指令集合", link: "/vue/directive.md" },
-                { text: "渐进式", link: "/vue/progressive.md" },
+                { text: "VueJs2", link: "/vue/vue2/vue2.md" },
+                { text: "响应式数据", link: "/vue/vue2/reactive-data.md" },
+                { text: "模板编译", link: "/vue/vue2/template-compilation.md" },
+                { text: "AST 抽象语法树", link: "/vue/vue2/ast.md" },
+                { text: "视图渲染", link: "/vue/vue2/view-rendering.md" },
+                { text: "渐进式框架", link: "/vue/vue2/progressive.md" },
               ],
             },
-            { text: "Vue3", link: "/vue/vue3.md" },
+            {
+              text: "Vue3",
+              collapsed: false,
+              items: [
+                { text: "VueJs3", link: "/vue/vue3/vue3.md" },
+              ]
+            },
             {
               text: "vue store",
+              collapsed: false,
               items: [
                 { text: "Vuex", link: "/vue/vuex.md" },
                 { text: "Pinia", link: "/vue/pinia.md" },
@@ -245,20 +276,83 @@ export default defineConfig({
           ],
         },
       ],
-
-      "/others/": [
+      "/build/": [
         {
-          text: "其他",
+          text: "构建工具",
           items: [
             {
-              text: "组件广场",
+              text: "webpack",
+              collapsed: false,
               items: [
-                { text: "组件导航", link: "/others/component/playground.md" },
-
+                { text: "webpack", link: "/build/webpack/webpack.md" },
               ],
             },
             {
+              text: "vue-cli",
+              collapsed: false,
+              items: [
+                { text: "vue-cli", link: "/build/vue-cli/vue-cli.md" },
+              ],
+            },
+            {
+              text: "vite",
+              collapsed: false,
+              items: [
+                { text: "vite", link: "/build/vite/vite.md" },
+              ],
+            },
+          ],
+        },
+      ],
+
+      "/others/": [
+        {
+          text: "相关内容",
+          items: [
+            {
+              text: "Nginx",
+              collapsed: false,
+              items: [
+                { text: "Nginx", link: "/others/nginx/nginx.md" },
+
+              ]
+            },
+
+            {
+              text: "网络与协议",
+              collapsed: false,
+              items: [
+                { text: "网络基础", link: "/others/network/network.md" },
+
+              ]
+            },
+            {
+              text: "浏览器",
+              collapsed: false,
+              items: [
+                { text: "浏览器工作原理", link: "/others/browser/browser.md" },
+              ]
+            },
+
+            {
+              text: "What happened",
+              collapsed: false,
+              items: [
+                { text: "What happened", link: "/others/what-happened/what-happened.md" },
+              ]
+            },
+
+            {
+              text: "操作系统", collapsed: false, items: [
+                { text: "Windows", link: "/others/os/windows.md" },
+                { text: "Mac", link: "/others/os/mac/mac.md" },
+                { text: "Linux", link: "/others/os/mac/linux.md" },
+              ]
+
+            },
+            {
               text: "设计模式",
+              collapsed: false,
               items: [
                 { text: "单例模式", link: "/others/design/singleton.md" },
                 { text: "代理模式", link: "/others/design/proxy.md" },
@@ -272,19 +366,31 @@ export default defineConfig({
             },
             {
               text: "算法",
+              collapsed: false,
               items: [
                 { text: "概念", link: "/others/algorithm/algorithm.md" },
                 { text: "冒泡排序", link: "/others/algorithm/bubble-sort.md" },
                 { text: "快速排序", link: "/others/algorithm/quicksort.md" },
               ],
             },
-            { text: "负载均衡", link: "/others/load-balancing.md" },
-            { text: "ESLint", link: "/others/eslint.md" },
-            { text: "浏览器", link: "/others/browser.md" },
-            { text: "网络与协议", link: "/others/network.md" },
-            { text: "开发工具", link: "/others/devtools.md" },
-            { text: "Linux", link: "/others/linux.md" },
-            { text: "SVG", link: "/others/svg.md" },
+            {
+              text: "开发相关工具",
+              collapsed: false,
+              items: [
+                { text: "Git", link: "/others/devtools/git.md" },
+                { text: "ESLint", link: "/others/devtools/eslint.md" },
+                { text: "Prettier", link: "/others/devtools/prettier.md" },
+              ]
+            },
+            {
+              text: "something",
+              collapsed: false,
+              items: [
+                { text: "something", link: "/others/something/something.md" },
+              ]
+            },
+
+
           ],
         },
       ],
@@ -309,8 +415,17 @@ export default defineConfig({
     },
 
     footer: {
-      message: '技术博客，记录前端学习历程。',
-      copyright: 'Copyright © 2025-present <a href="https://github.com/liuxinyudeya">刘心宇</a>',
+      message:
+        '技术改变生活，博客记录成长',
+      copyright:
+        '版权所有 © 2025-至今 <a href="https://github.com/liuxinyudeya">刘心宇</a>',
+    },
+    notFound: {
+      code: "404",
+      title: "哎呀，页面走丢了！",
+      quote: "生活就像一盒巧克力，你永远不知道下一颗是什么味道～",
+      link: "/",
+      linkText: "返回首页",
     },
 
   },

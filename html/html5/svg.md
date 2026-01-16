@@ -50,7 +50,7 @@ const imageComparison = {
 
 #### 2.1.1 图标和 UI 元素
 
-```svg
+```xml
 <!-- 响应式图标系统 -->
 <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -59,7 +59,7 @@ const imageComparison = {
 
 #### 2.1.2 数据可视化
 
-```svg
+```xml
 <!-- 动态图表 -->
 <svg width="400" height="300" class="chart">
     <!-- X轴 -->
@@ -84,7 +84,7 @@ const imageComparison = {
 
 #### 2.1.3 地图和示意图
 
-```svg
+```xml
 <!-- 简单地图 -->
 <svg width="600" height="400" class="map">
     <!-- 背景 -->
@@ -113,7 +113,7 @@ const imageComparison = {
 
 #### 2.1.4 Logo 和品牌元素
 
-```svg
+```xml
 <!-- 公司Logo -->
 <svg width="200" height="80" viewBox="0 0 200 80">
     <!-- 图形部分 -->
@@ -353,7 +353,7 @@ const svgTools = {
 
 #### 4.1.1 SVG 根元素
 
-```svg
+```xml
 <!-- 基本SVG结构 -->
 <svg
     xmlns="http://www.w3.org/2000/svg"     <!-- 命名空间 -->
@@ -376,7 +376,7 @@ const svgTools = {
 
 #### 4.1.2 viewBox 详解
 
-```svg
+```xml
 <!-- viewBox 的工作原理 -->
 <svg width="400" height="300" viewBox="0 0 200 150">
     <!-- 这里坐标系统是200x150，但显示在400x300的画布上 -->
@@ -407,7 +407,7 @@ const svgTools = {
 
 #### 4.2.1 矩形（rect）
 
-```svg
+```xml
 <svg width="300" height="200">
     <!-- 基本矩形 -->
     <rect x="20" y="20" width="100" height="80"
@@ -425,7 +425,7 @@ const svgTools = {
 
 #### 4.2.2 圆形（circle）和椭圆（ellipse）
 
-```svg
+```xml
 <svg width="300" height="200">
     <!-- 圆形 -->
     <circle cx="80" cy="80" r="50"
@@ -445,7 +445,7 @@ const svgTools = {
 
 #### 4.2.3 直线（line）和多段线（polyline）
 
-```svg
+```xml
 <svg width="300" height="200">
     <!-- 直线 -->
     <line x1="20" y1="20" x2="280" y2="180"
@@ -463,7 +463,7 @@ const svgTools = {
 
 #### 4.2.4 多边形（polygon）
 
-```svg
+```xml
 <svg width="300" height="200">
     <!-- 三角形 -->
     <polygon points="150,20 220,150 80,150"
@@ -481,7 +481,7 @@ const svgTools = {
 
 #### 4.2.5 路径（path） - 最强大的元素
 
-```svg
+```xml
 <svg width="400" height="300">
     <!-- 路径命令说明 -->
     <text x="10" y="20" font-size="12">路径命令：</text>
@@ -513,7 +513,7 @@ const svgTools = {
 
 #### 4.3.1 文本（text）
 
-```svg
+```xml
 <svg width="400" height="300">
     <!-- 基本文本 -->
     <text x="50" y="50" font-family="Arial" font-size="20" fill="#333">
@@ -545,7 +545,7 @@ const svgTools = {
 
 #### 4.3.2 样式属性详解
 
-```svg
+```xml
 <svg width="500" height="400">
     <!-- 填充和描边 -->
     <rect x="20" y="20" width="100" height="80"
@@ -603,7 +603,7 @@ const svgTools = {
 
 #### 4.4.1 符号（symbol）和引用（use）
 
-```svg
+```xml
 <svg width="400" height="300" style="border: 1px solid #ddd;">
     <!-- 定义符号（不直接显示） -->
     <defs>
@@ -632,7 +632,7 @@ const svgTools = {
 
 #### 4.4.2 组（g）和蒙版（mask）
 
-```svg
+```xml
 <svg width="400" height="300">
     <!-- 定义蒙版 -->
     <defs>
@@ -681,7 +681,7 @@ const svgTools = {
 
 ### 5.1 图标系统
 
-```svg
+```xml
 <!-- 完整图标系统示例 -->
 <svg width="0" height="0" style="position: absolute;">
     <defs>
@@ -767,7 +767,7 @@ document.querySelectorAll('.icon').forEach(icon => {
 
 ### 5.2 数据可视化图表
 
-```svg
+```xml
 <!-- 交互式柱状图 -->
 <svg width="600" height="400" id="bar-chart" class="chart">
     <!-- 定义渐变 -->
@@ -979,7 +979,7 @@ function hideTooltip() {
 
 ### 5.3 SVG 动画
 
-```svg
+```xml
 <!-- 复杂SVG动画示例 -->
 <svg width="600" height="400" id="animated-svg">
     <!-- 定义动画元素 -->
@@ -1362,7 +1362,7 @@ const SVGOptimization = {
 
 ### 6.2 可访问性
 
-```svg
+```xml
 <!-- 可访问的SVG示例 -->
 <svg role="img" aria-labelledby="chart-title chart-desc" width="400" height="300">
     <!-- 标题和描述（屏幕阅读器可读） -->
