@@ -62,7 +62,7 @@
 - 传统网站中的局部交互
 - 教学演示
 
-技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css.md) + [Vue.js](/vue/vue2.md)
+技术栈：[HTML](/html/html-attributes.md) + [CSS](/css/css3.md) + [Vue.js](/vue/vue2.md)
 
 ## 阶段 2：中级
 
@@ -119,7 +119,7 @@ export default {
 - 需要组件复用的场景
 - 团队协作项目
 
-技术栈：HTML + [ES6 Modules](/javascript/es6.md) + Vue(runtime)
+技术栈：HTML + [ES6 Modules](js/es6.md) + Vue(runtime)
 
 ## 阶段 3：专业级
 

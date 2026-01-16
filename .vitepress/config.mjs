@@ -70,7 +70,6 @@ export default defineConfig({
     lightModeSwitchTitle: '切换到亮色模式',
     darkModeSwitchTitle: '切换到暗色模式',
 
-    logoDark: "/logo-dark.svg",
     logo: "/logo-mini.svg",
 
     socialLinks: [
@@ -174,7 +173,7 @@ export default defineConfig({
             { text: "HTML 属性", link: "/html/html-attributes.md" },
             { text: "DOM", link: "/html/dom.md" },
             { text: "BOM", link: "/html/bom.md" },
-            
+
           ],
         },
       ],
@@ -289,13 +288,13 @@ export default defineConfig({
           ],
         },
       ],
-    }, 
+    },
     outline: {
       label: "本页目录",
       level: [2, 3, 4],
       position: "right",
     },
-    
+
     // 开启编辑时间
     lastUpdated: {
       text: "上次更新",
@@ -308,13 +307,11 @@ export default defineConfig({
       prev: "上一篇",
       next: "下一篇",
     },
-    
+
     footer: {
-      message:
-        'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
-      copyright:
-        'Copyright © 2025-present <a href="https://github.com/liuxinyudeya">刘心宇</a>',
+      message: '技术博客，记录前端学习历程。',
+      copyright: 'Copyright © 2025-present <a href="https://github.com/liuxinyudeya">刘心宇</a>',
     },
-    
+
   },
 });

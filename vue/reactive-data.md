@@ -1481,7 +1481,7 @@ watch: {
 }
 ```
 
-**[防抖](/javascript/es6.md) / [节流](/javascript/throttle.md)**：
+**[防抖](/js/es6.md) / [节流](/js/throttle.md)**：
 
 数据变化触发异步请求（如搜索联想、分页切换、筛选条件提交）。
 
