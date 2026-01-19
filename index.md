@@ -12,10 +12,11 @@ hero:
   actions:
     - theme: brand
       text: 随便看看
-      link: /others/design
+      link: /others/others
     - theme: alt
       text: 案例演示
-      link: /others/component/playground
+      link: /playground/playground
+      # link: https://liuxinyu.netlify.app/playground/playground
 
 features:
   - title: HTML
@@ -38,7 +39,7 @@ features:
       src: /icon/js.svg
   - title: Vue
     details: Vue响应式原理、模板编译、Vue Router、Vuex/Pinia状态管理等。
-    link: /vue/vue2
+    link: /vue/vue2/vue2
     linkText: 去看看
     icon:
       src: /icon/vue.svg

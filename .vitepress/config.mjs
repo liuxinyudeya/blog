@@ -173,6 +173,13 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "HTML5", link: "/html/html5/html5.md" },
+                { text: "基础语法", link: "/html/html5/basic-grammar.md" },
+                { text: "文本与内容标签", link: "/html/html5/text-content.md" },
+                { text: "链接与图像", link: "/html/html5/link-image.md" },
+                { text: "表格基础", link: "/html/html5/basic-table.md" },
+                { text: "表单基础", link: "/html/html5/basic-form.md" },
+                { text: "HTML5 标签", link: "/html/html5/html5-tags.md" },
+                { text: "开发与环境", link: "/html/html5/development-environment.md" },
               ]
             },
           ],
@@ -187,6 +194,13 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "目录导航", link: "/css/css3/css3.md" },
+                { text: "基础语法", link: "/css/css3/basic-syntax.md" },
+                { text: "基础盒模型", link: "/css/css3/basic-box-model.md" },
+                { text: "基本布局", link: "/css/css3/basic-layout.md" },
+                { text: "文本与字体", link: "/css/css3/text-font.md" },
+                { text: "背景与颜色", link: "/css/css3/background-color.md" },
+                { text: "基础响应式", link: "/css/css3/basic-reactive.md" },
+                { text: "工具与环境", link: "/css/css3/development-environment.md" },
               ]
             },
             {
@@ -216,9 +230,12 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "目录导航", link: "/js/javascript/javascript.md" },
-                { text: "DOM 文档对象模型 ", link: "/js/javascript/dom.md" },
-                { text: "BOM 浏览器对象模型", link: "/js/javascript/bom.md" },
-
+                { text: "基础语法", link: "/js/javascript/basic-syntax.md" },
+                { text: "内置对象与数据结构", link: "/js/javascript/objects-structures.md" },
+                { text: "DOM 文档对象模型 ", link: "/js/javascript/basic-dom.md" },
+                { text: "BOM 浏览器对象模型", link: "/js/javascript/basic-bom.md" },
+                { text: "基础异步编程", link: "/js/javascript/basic-async.md" },
+                { text: "错误处理", link: "/js/javascript/error-handling.md" }, 
               ]
             },
 

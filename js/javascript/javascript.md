@@ -678,7 +678,7 @@ JavaScript 的发展是一个不断解决自身局限性的过程，每个新版
 
 **适合：0-1 年经验，掌握基础语法和 DOM 操作**：
 
-### 1. JavaScript 核心语法
+### 1. [JavaScript 基础语法](/js/javascript/basic-syntax.md)
 
 - 变量与数据类型
   - let, const, var 的区别
@@ -693,7 +693,7 @@ JavaScript 的发展是一个不断解决自身局限性的过程，每个新版
   - 参数与返回值
   - 作用域与闭包基础
 
-### 2. 内置对象与数据结构
+### 2. [内置对象与数据结构](/js/javascript/objects-structures.md)
 
 - String 字符串操作
 - Array 数组方法（push, pop, map, filter, reduce 等）
@@ -701,7 +701,7 @@ JavaScript 的发展是一个不断解决自身局限性的过程，每个新版
 - Date、Math、正则表达式
 - Set、Map、WeakSet、WeakMap
 
-### 3. DOM 操作
+### 3. [DOM 操作](/js/javascript/basic-dom.md)
 
 - DOM 树结构理解
 - 元素选择器
@@ -716,35 +716,24 @@ JavaScript 的发展是一个不断解决自身局限性的过程，每个新版
   - 事件冒泡与捕获
   - 常见事件类型（click, submit, keydown 等）
 
-### 4. BOM 基础
+### 4. [BOM 基础](/js/javascript/basic-bom.md)
 
 - window 对象
 - location, history, navigator
 - 定时器（setTimeout, setInterval）
 
-### 5. 异步编程基础
+### 5. [异步编程基础](/js/javascript/basic-async.md)
 
 - 回调函数
 - Promise 基础用法
 - async/await 基础
 - Fetch API 基础使用
 
-### 6. 错误处理
+### 6. [错误处理](/js/javascript/error-handling.md)
 
 - try...catch...finally
 - Error 对象
 - 常见错误类型
-
-### 7. ES6+ 基础特性
-
-- 箭头函数
-- 模板字符串
-- 解构赋值
-- 默认参数
-- 扩展运算符
-- 模块化（import/export）
-
----
 
 ## 二、JavaScript 进阶篇（中级）
 
