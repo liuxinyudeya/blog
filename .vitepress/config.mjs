@@ -172,7 +172,7 @@ export default defineConfig({
               text: "HTML5",
               collapsed: false,
               items: [
-                { text: "HTML5", link: "/html/html5/html5.md" },
+                { text: "目录导航", link: "/html/html5/html5.md" },
                 { text: "基础语法", link: "/html/html5/basic-grammar.md" },
                 { text: "文本与内容标签", link: "/html/html5/text-content.md" },
                 { text: "链接与图像", link: "/html/html5/link-image.md" },

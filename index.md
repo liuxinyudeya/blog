@@ -21,7 +21,7 @@ hero:
 features:
   - title: HTML
     details: HTML语义化标签与表单增强、Web存储与离线应用等核心特性。
-    link: /html/html-elements
+    link: /html/html5/html5
     linkText: 去看看
     icon:
       src: /icon/html.svg
