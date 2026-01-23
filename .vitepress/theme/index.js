@@ -1,4 +1,10 @@
 import DefaultTheme from "vitepress/theme";
 import "./custom.css";
+import VitePressMermaid from "../plugins/vitepress-mermaid/index.vue";
 
-export default DefaultTheme;
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    app.component("vitepress-mermaid", VitePressMermaid);
+  },
+};

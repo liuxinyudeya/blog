@@ -1,4 +1,4 @@
-# HTML5 新元素技术文档
+# HTML5 新标签
 
 ## 语义化标签
 
@@ -763,7 +763,7 @@ function helloWorld() {
 
 #### WebVTT 字幕文件示例
 
-```vtt
+```txt
 WEBVTT
 
 1

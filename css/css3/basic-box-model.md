@@ -1,4 +1,4 @@
-# CSS 盒模型技术文档
+# CSS 盒模型
 
 ## 盒模型基础
 
@@ -752,11 +752,9 @@ CSS 盒模型描述了文档树中的元素如何生成矩形盒子，并根据�
 /* 多重背景与内边距 */
 .multiple-bg {
   padding: 40px;
-  background: linear-gradient(45deg, #3498db 30%, transparent 30%) 0 0, linear-gradient(
-        -45deg,
-        #2ecc71 30%,
-        transparent 30%
-      ) 0 0;
+  background:
+    linear-gradient(45deg, #3498db 30%, transparent 30%) 0 0,
+    linear-gradient(-45deg, #2ecc71 30%, transparent 30%) 0 0;
   background-size: 20px 20px;
   background-color: #ecf0f1;
 }
@@ -1017,11 +1015,9 @@ CSS 盒模型描述了文档树中的元素如何生成矩形盒子，并根据�
 /* 使用渐变作为边框 */
 .gradient-border {
   border: 5px solid transparent;
-  background: linear-gradient(white, white) padding-box, linear-gradient(
-        45deg,
-        #3498db,
-        #2ecc71
-      ) border-box;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(45deg, #3498db, #2ecc71) border-box;
   border-radius: 10px;
   padding: 20px;
 }
@@ -1030,7 +1026,9 @@ CSS 盒模型描述了文档树中的元素如何生成矩形盒子，并根据�
 .multi-gradient-border {
   border: double 5px transparent;
   border-radius: 10px;
-  background-image: linear-gradient(white, white), linear-gradient(45deg, #3498db, #e74c3c, #f39c12);
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(45deg, #3498db, #e74c3c, #f39c12);
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
@@ -1047,7 +1045,10 @@ CSS 盒模型描述了文档树中的元素如何生成矩形盒子，并根据�
 
 /* 多重阴影边框 */
 .multiple-shadow-border {
-  box-shadow: 0 0 0 1px #3498db, 0 0 0 3px #2ecc71, 0 0 0 5px #e74c3c;
+  box-shadow:
+    0 0 0 1px #3498db,
+    0 0 0 3px #2ecc71,
+    0 0 0 5px #e74c3c;
   padding: 20px;
 }
 
@@ -1816,9 +1817,8 @@ CSS 盒模型描述了文档树中的元素如何生成矩形盒子，并根据�
 
 /* 计算函数验证 */
 .standard-box::after {
-  content: "宽度: " attr(data-width) " | 总宽度: " calc(
-      200px + 40px + 10px + 20px
-    );
+  content: "宽度: " attr(data-width) " | 总宽度: "
+    calc(200px + 40px + 10px + 20px);
 }
 ```
 

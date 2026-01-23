@@ -1,8 +1,53 @@
+<script setup>
+    import Timeline from '@components/Timeline.vue'
+    const item = [
+      {
+        year: '2004',
+        title: 'WHATWG成立',
+        subtitle: 'Web Hypertext Application Technology Working Group',
+        icon: '🌐',
+        points: [
+          { icon: '🍎', text: '苹果、Mozilla、Opera等浏览器厂商组成' },
+          { icon: '👎', text: '对W3C的XHTML 2.0方向不满' },
+          { icon: '📄', text: '创建Web Forms 2.0和Web Apps 1.0' }
+          ]
+      },
+      {
+        year: '2006',
+        title: 'W3C认可HTML5工作',
+        icon: '🤝',
+        points: [
+          { text: 'W3C HTML工作组重新启动' },
+          { text: '采纳WHATWG的HTML5规范为基础' }
+          ]
+      },
+      {
+        year: '2009',
+        title: 'W3C停止XHTML 2.0',
+        icon: '🛑',
+        points: [
+          { icon: '✅', text: '承认HTML5是未来方向' },
+          { icon: '🌱', text: 'WHATWG负责\"HTML Living Standard\"' },
+          { icon: '📸', text: 'W3C负责\"HTML5\"快照版本' }
+        ]
+      },
+      {
+        year: '2014',
+        title: 'HTML5正式成为W3C推荐标准',
+        icon: '🏆',
+        points: [
+          { icon: '⏳', text: '历时8年开发' },
+          { icon: '🏛️', text: '现代Web的基石确立' }
+          ]
+      }
+    ]
+</script>
+
 # HTML5
 
-**HTML5**（HyperText Markup Language 5）是 HTML 的第五个主要版本，用于构建和呈现 Web 内容。
+**HTML5**（`HyperText` `Markup` `Language` 5）是 HTML 的第五个主要版本。
 
-它是 Web 技术的基石，与 CSS（样式）和 JavaScript（交互）共同构成了现代 Web 开发的核心三剑客。
+它与 [CSS](/css/css3/css3.md)（样式）和 [JavaScript](/js/javascript/javascript.md)（交互）共同构成了现代 Web 开发的核心三剑客。
 
 ::: tip HTML5 的核心设计哲学
 
@@ -18,7 +63,7 @@
 
 ### 诞生背景：Web 标准的演变需求
 
-#### 早期 HTML 的局限
+#### [早期 HTML 的局限](/html/related/html-limit.md)
 
 - **背景**：1990 年代，HTML4.0 和 XHTML 1.0 已无法满足现代 Web 需求
 - **问题**：缺乏语义化标签、依赖插件处理多媒体、移动设备支持差
@@ -26,25 +71,7 @@
 
 #### WHATWG 与 W3C 的分合
 
-```
-2004年：WHATWG成立
-    - 苹果、Mozilla、Opera等浏览器厂商组成
-    - 对W3C的XHTML 2.0方向不满
-    - 创建Web Forms 2.0和Web Apps 1.0
-
-2006年：W3C认可HTML5工作
-    - W3C HTML工作组重新启动
-    - 采纳WHATWG的HTML5规范为基础
-
-2009年：W3C停止XHTML 2.0
-    - 承认HTML5是未来方向
-    - WHATWG负责"HTML Living Standard"
-    - W3C负责"HTML5"快照版本
-
-2014年：HTML5正式成为W3C推荐标准
-    - 历时8年开发
-    - 现代Web的基石确立
-```
+<Timeline :items="item" color="#3eaf7c" />
 
 ### 为什么需要 HTML5？
 
@@ -457,7 +484,7 @@ self.addEventListener("install", function (e) {
   e.waitUntil(
     caches.open("my-cache").then(function (cache) {
       return cache.addAll(["/", "/index.html", "/styles.css", "/app.js"]);
-    })
+    }),
   );
 });
 
@@ -465,7 +492,7 @@ self.addEventListener("fetch", function (e) {
   e.respondWith(
     caches.match(e.request).then(function (response) {
       return response || fetch(e.request);
-    })
+    }),
   );
 });
 ```

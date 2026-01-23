@@ -450,7 +450,9 @@ box-sizing: border-box;
 /* 自定义字体 */
 @font-face {
   font-family: "MyCustomFont";
-  src: url("myfont.woff2") format("woff2"), url("myfont.woff") format("woff");
+  src:
+    url("myfont.woff2") format("woff2"),
+    url("myfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap; /* 字体显示策略 */
@@ -1028,7 +1030,6 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 1. 现代布局系统
 
 - **Flexbox 深入**
-
   - 容器与项目属性
   - 主轴与交叉轴
   - 对齐与分布
@@ -1050,13 +1051,11 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 3. 视觉效果与动画
 
 - **CSS 变换**
-
   - 2D 变换（translate、rotate、scale、skew）
   - 3D 变换基础
   - 变换原点与透视
 
 - **过渡与动画**
-
   - transition 属性详解
   - @keyframes 规则
   - animation 属性
@@ -1071,14 +1070,12 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 4. 架构与工程化
 
 - **CSS 架构方法论**
-
   - BEM 命名规范
   - OOCSS 原则
   - SMACSS 架构
   - ITCSS 架构
 
 - **预处理器**
-
   - Sass/SCSS 基础
   - 变量与混入
   - 函数与运算
@@ -1103,7 +1100,6 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 1. 高级布局与性能
 
 - **布局性能优化**
-
   - 重排与重绘优化
   - 硬件加速原理
   - 图层合成与性能
@@ -1118,19 +1114,16 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 2. CSS 最新特性
 
 - **CSS 自定义属性（变量）**
-
   - 定义与使用
   - 作用域与继承
   - JavaScript 交互
 
 - **级联层（Cascade Layers）**
-
   - @layer 规则
   - 层叠顺序控制
   - 样式优先级管理
 
 - **容器查询（Container Queries）**
-
   - @container 规则
   - 容器相对单位
   - 组件独立响应式
@@ -1144,14 +1137,12 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 3. 工程化与架构
 
 - **CSS-in-JS**
-
   - Styled-components
   - Emotion
   - 运行时与编译时方案
   - SSR 支持
 
 - **原子化 CSS 与工具类**
-
   - Tailwind CSS 深入
   - 自定义设计系统
   - 样式生成原理
@@ -1166,7 +1157,6 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 4. 测试与质量保证
 
 - **CSS 测试策略**
-
   - 视觉回归测试
   - 跨浏览器测试
   - 无障碍访问测试
@@ -1181,14 +1171,12 @@ CSS 的发展历程是从**修补缺点**到**范式革命**的过程：
 ### 5. 新兴技术与趋势
 
 - **CSS Houdini**
-
   - 自定义属性与值 API
   - 绘制 API（Paint API）
   - 布局 API（Layout API）
   - 动画工作线程
 
 - **Web 组件样式**
-
   - Shadow DOM 样式封装
   - CSS 模块脚本
   - 可定制化组件设计

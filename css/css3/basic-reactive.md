@@ -1,4 +1,4 @@
-# CSS3 响应式设计技术文档
+# CSS3 响应式设计
 
 ## 6.1 响应式设计概述
 
@@ -104,9 +104,8 @@
 <style>
   /* 确保内容延伸到安全区域外 */
   body {
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(
-        safe-area-inset-bottom
-      ) env(safe-area-inset-left);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 </style>
 ```
@@ -831,7 +830,8 @@ html {
 
 body {
   line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 h1 {
@@ -957,7 +957,10 @@ p {
       }
 
       body {
-        font-family: system-ui, -apple-system, sans-serif;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
         line-height: 1.6;
         color: #333;
       }
