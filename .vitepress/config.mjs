@@ -454,7 +454,12 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "Git", link: "/others/devtools/git.md" },
+                { text: "NPM", link: "/others/devtools/npm.md" },
                 { text: "ESLint", link: "/others/devtools/eslint.md" },
+                {
+                  text: "ESLint扁平化配置",
+                  link: "/others/devtools/flat-config.md",
+                },
                 { text: "Prettier", link: "/others/devtools/prettier.md" },
               ],
             },
