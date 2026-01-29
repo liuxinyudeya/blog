@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 import path from "path";
 import { fileURLToPath } from "url";
 import { mermaidPlugin } from "./plugins/vitepress-mermaid";
+import { text } from "stream/consumers";
 
 // 获取当前文件目录（ESM方式）
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -456,10 +457,7 @@ export default defineConfig({
                 { text: "Git", link: "/others/devtools/git.md" },
                 { text: "NPM", link: "/others/devtools/npm.md" },
                 { text: "ESLint", link: "/others/devtools/eslint.md" },
-                {
-                  text: "ESLint扁平化配置",
-                  link: "/others/devtools/flat-config.md",
-                },
+
                 { text: "Prettier", link: "/others/devtools/prettier.md" },
               ],
             },
@@ -468,6 +466,19 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "something", link: "/others/something/something.md" },
+              ],
+            },
+            {
+              text: "扩展阅读",
+              items: [
+                {
+                  text: "ESLint扁平化配置",
+                  link: "/others/related/flat-config.md",
+                },
+                {
+                  text: "项目中使用Eslint&Prettier",
+                  link: "/others/related/project-eslint-prettier.md",
+                },
               ],
             },
           ],

@@ -203,8 +203,8 @@ export default defineConfig([
 ```json [package.json]
 {
   "scripts": {
-    "lint": "eslint .",
-    "lint:report": "eslint . --format json > eslint-report.json"
+    "lint": "eslint .", // [!code hl]
+    "lint:report": "eslint . --format json > eslint-report.json" // [!code hl]
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
