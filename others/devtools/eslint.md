@@ -8,7 +8,7 @@ tr > td:nth-child(1) {
 
 **Eslint9 主要变化**：
 
-1. **新的[扁平化配置系统](/others/devtools/flat-config.md)**：从 `.eslintrc.*` 迁移到 `eslint.config.js`
+1. **新的[扁平化配置系统](/others/related/flat-config.md)**：从 `.eslintrc.*` 迁移到 `eslint.config.js`
 2. **模块化配置**：ES 模块格式，支持导入/导出
 3. **性能优化**：更快的配置解析和规则加载
 4. **TypeScript 原生支持**：改进的 TypeScript 集成
