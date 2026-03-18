@@ -56,7 +56,7 @@
       <div class="person-card">
         <div class="person-head-img">
           <!-- 头像图片，取消注释并替换为实际图片路径 -->
-          <!-- <img src="/images/playground/resume/header.jpg" alt="头像" /> -->
+          <img src="/images/playground/resume/header.jpg" alt="头像" />
         </div>
         <div class="person-info">
           <div class="person-base-info">
@@ -203,7 +203,7 @@ $color-black: #010002;
 $color-blue: #2c2ef0;
 $color-white: #f9fefa;
 $font-size: 16px;
-$ine-height: 1.5; // 可能是笔误，但保留原样
+$line-height: 1.5;
 
 $head-padding: 32px;
 $head-img-width: 280px;
@@ -294,7 +294,7 @@ $resume-header: calc(34px + 32px + 32px + $head-img-height + 64px);
         margin: 0 32px;
         width: $head-img-width;
         height: $head-img-height;
-        border: 1px solid red;
+        // border: 1px solid red;
         border-radius: 16px;
         overflow: hidden;
 
@@ -442,6 +442,7 @@ $resume-header: calc(34px + 32px + 32px + $head-img-height + 64px);
             text-decoration-thickness: 2px; /* 下划线粗细 */
             text-underline-offset: 0.2em; /* 下划线与文字的偏移量 */
           }
+
           .yellow {
             text-decoration-color: #ffd43a;
           }

@@ -35,6 +35,19 @@ export default defineConfig({
     ],
     ["meta", { name: "author", content: "liuxy" }],
     ["meta", { name: "description", content: "liuxinyude blog" }],
+    [
+      "script",
+      {},
+      `
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0bf460c9a8efa9aade5795095096ed3b"; // 替换为你的统计ID
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    `,
+    ],
   ],
 
   lang: "zh-CN",
