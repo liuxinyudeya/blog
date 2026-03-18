@@ -38,7 +38,7 @@ export default {
         router.onAfterRouteChange = (to) => {
           (console.log("路由切换到：", to), window._hmt);
           if (window._hmt) {
-            window._hmt.push(["_trackPageview", to]);
+            // window._hmt.push(["_trackPageview", to]);
           }
         };
       },
