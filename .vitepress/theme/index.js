@@ -36,7 +36,7 @@ export default {
 
         // 添加路由后置守卫
         router.onAfterRouteChange = (to) => {
-          (console.log("路由切换到：", to), window._hmt);
+          console.log("路由切换到：", to);
           if (window._hmt) {
             // window._hmt.push(["_trackPageview", to]);
           }
