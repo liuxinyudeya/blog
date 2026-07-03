@@ -18,6 +18,17 @@ export default defineConfig({
         "@components": path.resolve(__dirname, "../components"),
       },
     },
+    server: {
+      proxy: {
+        // 将 /api/baidu 开头的请求代理到百度统计 API
+        "/api/baidu": {
+          target: "https://openapi.baidu.com",
+          changeOrigin: true,
+          rewrite: (path) =>
+            path.replace(/^\/api\/baidu/, "/rest/2.0/tongji/report"),
+        },
+      },
+    },
   },
   // 设置站点 favicon.ico | 运行时与部署时去哪里加载资源？
   head: [
@@ -142,6 +153,9 @@ export default defineConfig({
           { text: "JavaScript", link: "/js/javascript/javascript.md" },
           { text: "ECMAScript", link: "/js/ecmascript/ecmascript.md" },
           { text: "TypeScript", link: "/js/typescript/typescript.md" },
+          { text: "GSAP", link: "/js/gsap/gsap.md" },
+          { text: "Three.js", link: "/js/threejs/threejs.md" },
+          { text: "WebGL", link: "/js/webgl/webgl.md" },
         ],
       },
 
@@ -237,6 +251,7 @@ export default defineConfig({
                 { text: "容器查询", link: "/css/css3/container-query.md" },
                 { text: "文本与字体", link: "/css/css3/text-font.md" },
                 { text: "背景与颜色", link: "/css/css3/background-color.md" },
+                { text: "阴影", link: "/css/css3/box-shadow.md" },
                 { text: "基础响应式", link: "/css/css3/basic-reactive.md" },
                 {
                   text: "工具与环境",

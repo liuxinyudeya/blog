@@ -7,9 +7,11 @@ title: 组件导航
 ---
 
 <script setup>
-    import VueFeatures from '@components/vue-features/VueFeatures.vue'
-    import resume from '@components/resume/resume.vue'
+    import Playground from '@components/playground/playground.vue'
+     
+    
 </script>
 
-<!-- <VueFeatures /> -->
-<resume/>
+<Playground />
+
+<!-- <resume/> -->

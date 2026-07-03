@@ -1,10 +1,57 @@
 <script setup>
-// 此组件依赖全局注册的 FontAwesomeIcon 组件
-// 确保在 VitePress 主题入口已添加所需图标库（fa-brands, fa-solid, fas, far 等）
+import { ref } from "vue";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+const printContent = ref(null);
+
+const exportToPDF = async () => {
+  if (!printContent.value) return;
+
+  try {
+    // 生成 canvas
+    const canvas = await html2canvas(printContent.value, {
+      scale: 2, // 保留清晰度
+      backgroundColor: "#ffffff",
+      logging: true, // 开启日志，便于调试
+      useCORS: true, // 跨域图片
+      allowTaint: false, // 防止污染
+      windowWidth: printContent.value.scrollWidth, // 强制指定视口宽度
+      windowHeight: printContent.value.scrollHeight, // 强制指定视口高度
+      onclone: (clonedDoc, element) => {
+        // 在克隆文档中调整样式（比如移除会导致渲染错误的 CSS）
+        // 这里可以手动修复某些不支持的效果
+      },
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 210; // A4 宽度 mm
+    const pageHeight = 297; // A4 高度 mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // 如果图片高度超过一页，自动分页
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("resume.pdf");
+  } catch (error) {
+    console.error("PDF 导出失败：", error);
+  }
+};
 </script>
 
 <template>
-  <div class="resume-container">
+  <button @click="exportToPDF">打印 / 另存为 PDF</button>
+  <div class="resume-container" ref="printContent">
     <div class="resume-header">
       <div class="bg">
         <section aria-labelledby="skills-heading" class="skill-tags">
@@ -12,7 +59,7 @@
           <ul>
             <li>
               <FontAwesomeIcon
-                icon="fa-brands fa-html5"
+                icon="fa-brands fa-html5 icon"
                 color="#ffd43a"
                 aria-hidden="true"
               />
@@ -206,7 +253,7 @@ $font-size: 16px;
 $line-height: 1.5;
 
 $head-padding: 32px;
-$head-img-width: 280px;
+$head-img-width: 320px;
 $head-img-height: 360px;
 $bg-height: calc(34px + 32px + 32px + $head-img-height / 2);
 $resume-header: calc(34px + 32px + 32px + $head-img-height + 64px);
@@ -231,7 +278,7 @@ $resume-header: calc(34px + 32px + 32px + $head-img-height + 64px);
   margin: 0 auto;
   padding: 32px 24px;
   width: 1240px;
-  height: 1754px;
+  height: 1752px;
   background-color: $color-black;
   font-family:
     "宋体",
@@ -274,6 +321,7 @@ $resume-header: calc(34px + 32px + 32px + $head-img-height + 64px);
             color: $color-white;
             border-radius: 999px;
             white-space: nowrap;
+            vertical-align: middle;
           }
         }
       }

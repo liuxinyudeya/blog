@@ -42,8 +42,9 @@ const sendMessage = (data) => {
 
 <style lang="scss" scoped>
 .vue-features-container {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   // min-height: 100vh;
   display: flex;
